@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <swiz:BeanLoader
 	xmlns:mx="http://www.adobe.com/2006/mxml"
-	xmlns:swiz="http://swiz.swizframework.org" xmlns:malibu="com.stdva.malibu.*">
+	xmlns:swiz="http://swiz.swizframework.org"
+	xmlns:malibu="com.stdva.malibu.*"
+	xmlns:vpaint="com.stdva.malibu.vpaint.*">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.stdva.malibu.Bottle;
+		]]>
+	</mx:Script>
 	
 	
 	<malibu:PainterWindow  id="painterWindow"/>
+	
+	<vpaint:ToolSet id="toolset">
+		<vpaint:BDDrawTool id="brush1" brushClass="{com.stdva.malibu.Bottle}"/>
+	</vpaint:ToolSet>
 	
 </swiz:BeanLoader>
