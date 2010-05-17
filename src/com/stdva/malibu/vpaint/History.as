@@ -9,7 +9,7 @@ package com.stdva.malibu.vpaint
 	
 	import org.swizframework.factory.IInitializingBean;
 
-	public class History implements IInitializingBean
+	public class History  extends Sprite implements IInitializingBean
 	{
 		
 		public var painterWindow : PainterWindow;
@@ -25,7 +25,7 @@ package com.stdva.malibu.vpaint
 		} 
 		
 		private var _mergedData : BitmapData;
-		private var _layers : Array = [];
+		private var _states : Array = [];
 		private var _composition : Sprite;
 		
 		public function get currentGraphics() : Graphics {
@@ -36,6 +36,7 @@ package com.stdva.malibu.vpaint
 				return null;
 			}
 		}
+		
 		
 		/**
 		 * Начинает новый слой истории 

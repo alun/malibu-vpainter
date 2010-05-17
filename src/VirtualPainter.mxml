@@ -13,6 +13,7 @@
 	<mx:Script>
 		<![CDATA[
 			import com.stdva.malibu.PainterWindow;
+			import com.stdva.malibu.vpaint.BDDrawTool;
 			
 			import mx.events.FlexEvent;
 			
@@ -20,7 +21,12 @@
 			private var _addedToStage : Boolean = false;
 			
 			[Autowire]
+			public var bDDrawTool : BDDrawTool;
+			
+			[Autowire]
 			public function set painterWindow( window : PainterWindow ) : void {
+				
+				
 				
 				_painterWindow = window;
 				
@@ -28,6 +34,31 @@
 				trace( window.height );
 				
 				rawChildren.addChild( _painterWindow );
+				
+				addEventListeners();
+			}
+			private function addEventListeners () : void
+			{
+				
+				var s : DisplayObject  = _painterWindow.getChildByName("bottle");
+				
+				
+				bDDrawTool.tempDrawTarget = s;
+				
+				s.addEventListener(MouseEvent.MOUSE_DOWN,function (e : MouseEvent) : void 
+				{
+					bDDrawTool.mouseDown(new Point(e.localX,e.localY));
+				});
+				
+				s.addEventListener(MouseEvent.MOUSE_MOVE, function (e : MouseEvent) : void 
+				{
+					if (e.buttonDown)
+						bDDrawTool.mouseMove(new Point(e.localX,e.localY));
+					
+					trace (e.localX.toString() + " " + e.localY.toString())
+				});
+				
+				
 			}
 			
 		]]>

@@ -13,6 +13,7 @@
 	
 	
 	<malibu:PainterWindow  id="painterWindow"/>
+	<vpaint:ToolSet id="toolSet"/>
 	
 	<vpaint:ToolSet id="toolset">
 		<vpaint:BDDrawTool id="brush1" brushClass="{com.stdva.malibu.Bottle}"/>
