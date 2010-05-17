@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<swiz:BeanLoader
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:swiz="http://swiz.swizframework.org" xmlns:malibu="com.stdva.malibu.*">
+	
+	
+	<malibu:PainterWindow  id="painterWindow"/>
+	
+</swiz:BeanLoader>

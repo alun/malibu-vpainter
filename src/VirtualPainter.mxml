@@ -1,4 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" minWidth="955" minHeight="600">
+<mx:Application layout="absolute" minWidth="955" minHeight="600"
+	xmlns:swiz="http://swiz.swizframework.org"
+	xmlns:mx="http://www.adobe.com/2006/mxml"> 
+	
+	<swiz:SwizConfig
+		strict="true"
+		beanLoaders="{ [ApplicationConfig] }"
+		mediateBubbledEvents="true"
+		/>
+	
+	
+	<mx:Script>
+		<![CDATA[
+			import com.stdva.malibu.PainterWindow;
+			
+			import mx.events.FlexEvent;
+			
+			private var _painterWindow : PainterWindow;
+			private var _addedToStage : Boolean = false;
+			
+			[Autowire]
+			public function set painterWindow( window : PainterWindow ) : void {
+				
+				_painterWindow = window;
+				
+				trace( window.width );
+				trace( window.height );
+				
+				rawChildren.addChild( _painterWindow );
+			}
+			
+		]]>
+	</mx:Script>
 	
 </mx:Application>
