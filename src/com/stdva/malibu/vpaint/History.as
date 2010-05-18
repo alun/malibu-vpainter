@@ -55,9 +55,9 @@ package com.stdva.malibu.vpaint
 		
 		/*
 		public function get currentGraphics() : Graphics {
-			var length : int = _layers.length
+			var length : int = _states.length
 			if( length > 0 ) {
-				return Shape(_layers[length - 1]).graphics;
+				return Shape(_states[length - 1]).graphics;
 			} else {
 				return null;
 			}
