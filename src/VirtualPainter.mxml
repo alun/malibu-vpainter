@@ -21,9 +21,6 @@
 			private var _painterWindow : PainterWindow;
 			private var _addedToStage : Boolean = false;
 			
-			[Autowire]
-			public var bDDrawTool : BDDrawTool;
-			
 			[Autiwire]
 			public var guiListener : GUIListener;
 			
@@ -39,33 +36,8 @@
 				
 				rawChildren.addChild( _painterWindow );
 				
-				//addEventListeners();
 			}
-			/*
-			private function addEventListeners () : void
-			{
-				
-				var s : DisplayObject  = _painterWindow.getChildByName("bottle");
-				
-				
-				bDDrawTool.tempDrawTarget = s;
-				
-				s.addEventListener(MouseEvent.MOUSE_DOWN,function (e : MouseEvent) : void 
-				{
-					bDDrawTool.mouseDown(new Point(e.localX,e.localY));
-				});
-				
-				s.addEventListener(MouseEvent.MOUSE_MOVE, function (e : MouseEvent) : void 
-				{
-					if (e.buttonDown)
-						bDDrawTool.mouseMove(new Point(e.localX,e.localY));
-					
-					trace (e.localX.toString() + " " + e.localY.toString())
-				});
-				
-				
-			}
-			*/
+
 		]]>
 	</mx:Script>
 	

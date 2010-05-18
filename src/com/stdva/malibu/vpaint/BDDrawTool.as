@@ -26,15 +26,18 @@ package com.stdva.malibu.vpaint
 		
 		public var brushClass : Class;
 		
+		public var cursor : Sprite;
+		
 		public function initialize() : void {
 			if( brushClass == null ) {
 				throw new Error("Класс кисти не указан");
 			}
-			
-			_brush = new brushClass(30,30);
+			//_brush = new brushClass(30,30);
+			cursor = new Sprite;
+			cursor.addChild(new Bitmap(new brushClass(30,30)));
 		}
 		
-		private var _brush : BitmapData;
+		//private var _brush : BitmapData;
 		//private var _mouseDown : Boolean = false;
 		private var _lastPoint : Point = null; 
 		private var stepper :  Number = 0;
@@ -44,14 +47,15 @@ package com.stdva.malibu.vpaint
 		
 		public function mouseDown( point : Point ) : void 
 		{
-			
 			beginDraw(point);
+			//trace (point.x.toString() + " " +point.y.toString()  )
 			
 	   } 
 		public function beginDraw (point : Point) : void
 		{
 			_lastPoint = point;
 			stepper = 0;
+			
 			drawInPoint(point);
 			
 		/*
@@ -129,6 +133,8 @@ package com.stdva.malibu.vpaint
 			}
 			
 		}
+		
+		
 			
 		
 	}

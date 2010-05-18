@@ -21,8 +21,15 @@
 	
 	<gui:Configurator id="guiConfigurator"/>
 	
+	<vpaint:MySlider id="widthSlider" scale="{painterWindow.widthSliderScale}" todder="{painterWindow.widthSliderTodder}"/>
+	<vpaint:MySlider id="alphaSlider" scale="{painterWindow.alphaSliderScale}" todder="{painterWindow.alphaSliderTodder}"/>
+	
 	<vpaint:ToolSet id="toolset">
 		<vpaint:BDDrawTool id="brush1" brushClass="{com.stdva.malibu.brushes.b1}"/>
+		<vpaint:BDDrawTool id="brush2" brushClass="{com.stdva.malibu.brushes.b2}"/>
+		<vpaint:BDDrawTool id="brush3" brushClass="{com.stdva.malibu.brushes.b3}"/>
+		<vpaint:BDDrawTool id="brush4" brushClass="{com.stdva.malibu.brushes.b4}"/>
+		<vpaint:BDDrawTool id="brush5" brushClass="{com.stdva.malibu.brushes.b5}"/>
 	</vpaint:ToolSet>
 	
 </swiz:BeanLoader>
