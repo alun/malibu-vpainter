@@ -19,6 +19,9 @@ package com.stdva.malibu.vpaint
 		public function initialize() : void 
 		{
 			currentTool = Swiz.getBean("brush1") as ITool;	
+			
+			color = 0xFF0000;
+			
 		} 
 		
 	}

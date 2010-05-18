@@ -58,6 +58,7 @@ package com.stdva.malibu.vpaint
 		{
 			var sn : Sprite = new Sprite;
 			sn.addChild(new Bitmap(new brushClass(5,5) ));
+			
 			sn.width = 30;
 			sn.height = 30;
 			sn.x = point.x;
