@@ -96,8 +96,7 @@ package com.stdva.malibu.vpaint
 			sn.scaleY = sn.scaleX;
 			sn.x = point.x;
 			sn.y = point.y;
-			
-			history.currentState.draw(sn, sn.transform.matrix);
+			history.currentLayer.bitmapData.draw(sn, sn.transform.matrix);
 		}
 		
 		public function mouseMove( point : Point, buttonDown : Boolean ) : void 

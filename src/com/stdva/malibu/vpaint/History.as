@@ -5,6 +5,7 @@ package com.stdva.malibu.vpaint
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.display.BlendMode;
 	import flash.display.DisplayObject;
 	import flash.display.Graphics;
 	import flash.display.Shape;
@@ -14,65 +15,76 @@ package com.stdva.malibu.vpaint
 
 	public class History implements IInitializingBean
 	{
+		public const HISTORY_SIZE : Number = 20;
 		
 		[Autowire]
 		public var painterWindow : PainterWindow;
 		
-		private var addedBitmap : Bitmap;
-		private var _states : Array = [];
+		/*
+		 * Картинка на которой сейчас рисуем
+		 */
+		public var currentLayer : Bitmap;
+		
+		/*
+		* Последняя картинка
+		*/
+		private var recentLayer : Bitmap;
+		
+		/*
+		 * Массив последних картинок
+		 */
+		private var _historyLayers : Array = [];
+		
 		
 		public function initialize() : void {
 			
-		
-			// обработать painterWindow
 			
-			// создать _mergedData
+			recentLayer = createLayer();
 			
-			var source : DisplayObject = painterWindow.bottle;
-			var bitmapData : BitmapData = new BitmapData(source.width, source.height);
-			//var mask : DisplayObject = new Bitmap( new Bottle(source.width, source.height) );
+			var bottle : DisplayObject = painterWindow.bottle;
 			
-			addedBitmap = new Bitmap(bitmapData);
-				
-			painterWindow.addChild(addedBitmap);
+			var idx : int = painterWindow.getChildIndex( bottle );
 			
-			//painterWindow.addChild(mask);
-			/*
-			var sp : Sprite = new Sprite();
-			sp.graphics.beginFill( 0 );
-			sp.graphics.drawCircle( 100, 100, 50 );
-			sp.graphics.endFill();
+			currentLayer.mask = painterWindow.maskArea;
 			
-			painterWindow.addChild(sp);
-			*/
+			var bottleOverlay : Bitmap = new Bitmap( new Bottle(0,0) );
+			bottleOverlay.blendMode = BlendMode.MULTIPLY;
+			bottleOverlay.transform = bottle.transform;
 			
-			//addedBitmap.mask = sp;
-			bitmapData.draw(painterWindow.bottle);
-			_states.push(bitmapData);
+			bottle.blendMode = BlendMode.HARDLIGHT;
 			
-			
-		} 
-		
-		/*
-		public function get currentGraphics() : Graphics {
-			var length : int = _states.length
-			if( length > 0 ) {
-				return Shape(_states[length - 1]).graphics;
-			} else {
-				return null;
-			}
-		}*/
-		
-		public function get currentState () : BitmapData 
-		{
-			if (_states.length > 0)
-					return _states[length-1]
-			else
-					return null;
+			painterWindow.addChildAt( recentLayer, idx + 1 );
+			painterWindow.addChildAt( currentLayer, idx + 2 );
+			painterWindow.addChildAt( bottleOverlay, idx + 3 );
 		}
 		
+		private function removeLayer( layer : Bitmap ) : void {
+			try {
+				painterWindow.removeChild( layer );
+			} catch( e : Error ) {
+			}
+		}
 		
+		private function prepareLayers() : void {
+			
+			if( currentLayer != null ) {
+				removeLayer( currentLayer );
+			}
+			currentLayer = createLayer();
+			
+			if( recentLayer != null ) {
+				removeLayer( recentLayer );
+			} 
+			recentLayer = createLayer();
+			
+		}
 		
+		private function createLayer() : Bitmap {
+			var source : DisplayObject = painterWindow.bottle;
+			var bitmapData : BitmapData = new BitmapData(source.width, source.height, true, 0);
+			
+			return new Bitmap(bitmapData);
+		} 
 		
 		/**
 		 * Начинает новый слой истории 
