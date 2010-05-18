@@ -13,7 +13,9 @@
 	
 	
 	<malibu:PainterWindow  id="painterWindow"/>
-	<vpaint:ToolSet id="toolSet"/>
+	<vpaint:History id="history" />
+	<vpaint:GUIListener id="guiListener" />
+	<vpaint:DrawingParams id="drawingParams"/>
 	
 	<vpaint:ToolSet id="toolset">
 		<vpaint:BDDrawTool id="brush1" brushClass="{com.stdva.malibu.Bottle}"/>

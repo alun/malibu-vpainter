@@ -14,6 +14,7 @@
 		<![CDATA[
 			import com.stdva.malibu.PainterWindow;
 			import com.stdva.malibu.vpaint.BDDrawTool;
+			import com.stdva.malibu.vpaint.GUIListener;
 			
 			import mx.events.FlexEvent;
 			
@@ -23,10 +24,13 @@
 			[Autowire]
 			public var bDDrawTool : BDDrawTool;
 			
+			[Autiwire]
+			public var guiListener : GUIListener;
+			
 			[Autowire]
 			public function set painterWindow( window : PainterWindow ) : void {
 				
-				
+		
 				
 				_painterWindow = window;
 				
@@ -35,8 +39,9 @@
 				
 				rawChildren.addChild( _painterWindow );
 				
-				addEventListeners();
+				//addEventListeners();
 			}
+			/*
 			private function addEventListeners () : void
 			{
 				
@@ -60,7 +65,7 @@
 				
 				
 			}
-			
+			*/
 		]]>
 	</mx:Script>
 	
