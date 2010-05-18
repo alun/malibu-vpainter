@@ -3,7 +3,8 @@
 	xmlns:mx="http://www.adobe.com/2006/mxml"
 	xmlns:swiz="http://swiz.swizframework.org"
 	xmlns:malibu="com.stdva.malibu.*"
-	xmlns:vpaint="com.stdva.malibu.vpaint.*">
+	xmlns:vpaint="com.stdva.malibu.vpaint.*"
+	xmlns:gui="com.stdva.malibu.vpaint.gui.*">
 	
 	<mx:Script>
 		<![CDATA[
@@ -17,6 +18,8 @@
 	<vpaint:History id="history" />
 	<vpaint:GUIListener id="guiListener" />
 	<vpaint:DrawingParams id="drawingParams"/>
+	
+	<gui:Configurator id="guiConfigurator"/>
 	
 	<vpaint:ToolSet id="toolset">
 		<vpaint:BDDrawTool id="brush1" brushClass="{com.stdva.malibu.brushes.b1}"/>
