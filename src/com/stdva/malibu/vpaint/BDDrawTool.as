@@ -15,8 +15,6 @@ package com.stdva.malibu.vpaint
 	
 	import org.swizframework.factory.IInitializingBean;
 	
-	import spark.primitives.Rect;
-
 	public class BDDrawTool implements ITool, IInitializingBean
 	{
 		
@@ -56,7 +54,6 @@ package com.stdva.malibu.vpaint
 			stepper = 0;
 			drawInPoint(point);
 			
-			var rect:Rectangle = new Rectangle(0, 0,	history.currentState.width , history.currentState.height);
 		/*
 			tempDrawTarget = new BitmapData(history.currentState.width, history.currentState.height,true);
 		

@@ -38,7 +38,7 @@ package com.stdva.malibu.vpaint
 		
 		public function initialize() : void {
 			
-			
+			currentLayer = createLayer();
 			recentLayer = createLayer();
 			
 			var bottle : DisplayObject = painterWindow.bottle;
