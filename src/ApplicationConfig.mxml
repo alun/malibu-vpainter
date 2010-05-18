@@ -8,7 +8,7 @@
 	<mx:Script>
 		<![CDATA[
 			import com.stdva.malibu.Bottle;
-			import com.stdva.malibu.brushes.b4;
+			import com.stdva.malibu.brushes.b1;
 		]]>
 	</mx:Script>
 	
@@ -19,7 +19,7 @@
 	<vpaint:DrawingParams id="drawingParams"/>
 	
 	<vpaint:ToolSet id="toolset">
-		<vpaint:BDDrawTool id="brush1" brushClass="{com.stdva.malibu.brushes.b4}"/>
+		<vpaint:BDDrawTool id="brush1" brushClass="{com.stdva.malibu.brushes.b1}"/>
 	</vpaint:ToolSet>
 	
 </swiz:BeanLoader>

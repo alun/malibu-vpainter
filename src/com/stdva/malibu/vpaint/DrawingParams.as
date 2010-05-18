@@ -21,6 +21,9 @@ package com.stdva.malibu.vpaint
 			currentTool = Swiz.getBean("brush1") as ITool;	
 			
 			color = 0xFF0000;
+			brushSize = 40;
+			opacity = 0.2;
+			
 			
 		} 
 		
