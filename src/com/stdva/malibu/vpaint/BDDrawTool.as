@@ -51,7 +51,7 @@ package com.stdva.malibu.vpaint
 			_lastPoint = null;
 		} 
 
-		private static const SOLIDITY : int = 10;	
+		private static const SOLIDITY : int = 3;	
 		//лдина вектора на один битмап
 		
 		private function drawInPoint (point : Point) : void
@@ -73,12 +73,14 @@ package com.stdva.malibu.vpaint
 				{	
 					var length : Number  =  Math.sqrt((_lastPoint.x - point.x) * (_lastPoint.x - point.x)	 + (_lastPoint.y - point.y) * (_lastPoint.y - point.y)	)
 					stepper += length;	
-					var e : Point = new Point ((point.x - _lastPoint.x)/length, (point.y - _lastPoint.y)/length);
-					for (var i : int = 0; i < stepper/SOLIDITY; i++)
+					var e : Point = new Point ((point.x - _lastPoint.x)/length, (point.y - _lastPoint.y)/length);//единичный вектор
+					var d : Number = stepper - int(stepper/SOLIDITY) * SOLIDITY // stepper который останется после цикла
+					var num : int = int(stepper/SOLIDITY);//количество точек которое сейчас нарисуем
+						
+					for(var i : int = num-1;stepper > SOLIDITY;i--,stepper -= SOLIDITY)
 					{
-						var currentPoint : Point = new Point (_lastPoint.x + e.x*i*SOLIDITY,  _lastPoint.y + e.y*i*SOLIDITY);
+						var currentPoint : Point = new Point(point.x - e.x * d - SOLIDITY*e.x*i, point.y - e.y*d - SOLIDITY*e.y*i);
 						drawInPoint(new Point(currentPoint.x, currentPoint.y));
-						stepper -= SOLIDITY;
 					}
 				}
 				_lastPoint = point;
