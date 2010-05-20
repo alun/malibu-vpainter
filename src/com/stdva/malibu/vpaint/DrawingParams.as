@@ -32,7 +32,7 @@ package com.stdva.malibu.vpaint
 		{
 			currentTool = toolSet.tools[0];	
 			
-			color = 0xFF0000;
+			//color = 0xFF0000;
 			//brushSize = 40;
 			//opacity = 0.2;
 		} 

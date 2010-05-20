@@ -9,13 +9,28 @@
 		mediateBubbledEvents="true"
 		/>
 	
+	<mx:Style>
+		.myColorPicker { 
+			 overSkin:Embed(skinClass="MyColorPicker");  
+			 upSkin:Embed(skinClass="MyColorPicker");  
+			 disabledSkin:Embed(skinClass="MyColorPicker");  
+			 downSkin:Embed(skinClass="MyColorPicker");  
+			 
+		}
+	</mx:Style>
+
 	
+	<!--<mx:ColorPicker id="cp" styleName="myColorPicker"/>
+	-->
 	<mx:Script>
 		<![CDATA[
 			import com.stdva.malibu.PainterWindow;
 			import com.stdva.malibu.vpaint.BDDrawTool;
+			import com.stdva.malibu.vpaint.DrawingParams;
 			import com.stdva.malibu.vpaint.GUIListener;
 			
+			import mx.controls.ColorPicker;
+			import mx.events.ColorPickerEvent;
 			import mx.events.FlexEvent;
 			
 			private var _painterWindow : PainterWindow;
@@ -25,9 +40,12 @@
 			public var guiListener : GUIListener;
 			
 			[Autowire]
+			public var drawingParams : DrawingParams;
+			
+			[Autowire]
 			public function set painterWindow( window : PainterWindow ) : void {
 				
-		
+			
 				
 				_painterWindow = window;
 				
@@ -36,6 +54,19 @@
 				
 				rawChildren.addChild( _painterWindow );
 				
+				var colorPicker : ColorPicker = new ColorPicker();
+				colorPicker.x = _painterWindow.picker.x;
+				colorPicker.y = _painterWindow.picker.y;
+				_painterWindow.picker.visible = false;
+				colorPicker.width=30;
+				colorPicker.height=30;
+				colorPicker.styleName="myColorPicker";
+				rawChildren.addChild(colorPicker);
+				drawingParams.color = colorPicker.selectedColor;
+				colorPicker.addEventListener(ColorPickerEvent.CHANGE,function (e:*) : void 
+				{
+					drawingParams.color = colorPicker.selectedColor;
+				});
 			}
 
 		]]>
