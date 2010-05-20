@@ -95,8 +95,8 @@ package com.stdva.malibu.vpaint
 			sn.addChild(bm);
 			sn.width = drawingParams.brushSize;
 			sn.scaleY = sn.scaleX;
-			sn.x = point.x;
-			sn.y = point.y;
+			sn.x = point.x - sn.width/2;
+			sn.y = point.y - sn.height/2;
 			history.currentLayer.bitmapData.draw(sn, sn.transform.matrix);
 		}
 		
