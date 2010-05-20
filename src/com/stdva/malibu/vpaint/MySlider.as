@@ -11,18 +11,23 @@ package com.stdva.malibu.vpaint
 	
 	import org.swizframework.factory.IInitializingBean;
 
-	public class MySlider implements IInitializingBean 
+	public class MySlider extends EventDispatcher implements IInitializingBean 
 	{
 		public var scale : DisplayObject;
 		public var todder : DisplayObject;
+		public static const CHANGED : String = "changed";
+		
+		[Bindable(event=CHANGED)]
 		public function get value () : int
 		{
 			return (todder.x - scale.x) * 100 / scale.width;
 		}
+		
 		public function set value (v : int) : void
 		{
 			todder.x = scale.x + scale.width*v / 100;
 		}
+		
 		public function initialize() : void 
 		{
 			scale.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
@@ -47,9 +52,14 @@ package com.stdva.malibu.vpaint
 		private var toGoX : int;
 		private static const k : Number = 0.7;
 		
+		private var epsilon : Number = 2;
 		private function doFrame (e : *) : void
 		{
-			todder.x = todder.x+ (toGoX - todder.x)*k;
+			if (Math.abs(todder.x - toGoX)>epsilon)
+			{
+				todder.x = todder.x+ (toGoX - todder.x)*k;
+				dispatchEvent(new Event(CHANGED));
+			}
 		}
 		
 		

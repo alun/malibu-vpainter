@@ -20,6 +20,9 @@ package com.stdva.malibu.vpaint
 		[Autowire]
 		public var painterWindow : PainterWindow;
 		
+		[Autowire][Bindable]
+		public var drawingParams : DrawingParams;
+		
 		/*
 		 * Картинка на которой сейчас рисуем
 		 */
@@ -39,6 +42,7 @@ package com.stdva.malibu.vpaint
 		public function initialize() : void {
 			
 			currentLayer = createLayer();
+			currentLayer.alpha = drawingParams.opacity;
 			recentLayer = createLayer();
 			
 			var bottle : DisplayObject = painterWindow.bottle;
@@ -56,6 +60,11 @@ package com.stdva.malibu.vpaint
 			painterWindow.addChildAt( recentLayer, idx + 1 );
 			painterWindow.addChildAt( currentLayer, idx + 2 );
 			painterWindow.addChildAt( bottleOverlay, idx + 3 );
+			
+			drawingParams.addEventListener(DrawingParams.CHANGED,function (e : *) : void 
+			{
+				currentLayer.alpha = drawingParams.opacity;
+			});
 		}
 		
 		private function removeLayer( layer : Bitmap ) : void {
@@ -89,7 +98,33 @@ package com.stdva.malibu.vpaint
 		/**
 		 * Начинает новый слой истории 
 		 */
+		public var changed : Boolean = false;
 		public function checkout() : void {
+		
+			if (changed)
+			{
+				painterWindow.removeChild(  recentLayer );
+				painterWindow.removeChild( currentLayer );
+				
+				var s : Sprite = new Sprite;
+				s.addChild(recentLayer);
+				s.addChild(currentLayer);
+				
+				var b : Bitmap = createLayer();
+				b.bitmapData.draw(s);
+				
+				_historyLayers.push(recentLayer.bitmapData);
+				
+				recentLayer = new Bitmap(b.bitmapData);
+				currentLayer = createLayer();
+				currentLayer.alpha = drawingParams.opacity;
+				currentLayer.mask = painterWindow.maskArea;
+				
+				var idx : int = painterWindow.getChildIndex( painterWindow.bottle );
+				painterWindow.addChildAt( recentLayer, idx + 1 );
+				painterWindow.addChildAt( currentLayer, idx + 2 );
+			}
+			changed = false;
 			
 		}
 		

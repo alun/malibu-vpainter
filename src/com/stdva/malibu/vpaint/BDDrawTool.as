@@ -67,17 +67,19 @@ package com.stdva.malibu.vpaint
 			
 			//history.currentState.draw(tempDrawTarget);
 		}
-		public function stopDraw (point) : void
+		public function stopDraw () : void
 		{
 			//tempDrawTarget.colorTransform(rect,new ColorTransform(1,1,1,0.5,0,0,0,0))
+			history.checkout();
 		}
 		
 
 		public function mouseUp( point : Point ) : void 
 		{
 			//_mouseDown = false;
-			history.checkout();
+			//history.checkout();
 			_lastPoint = null;
+			stopDraw();
 		} 
 
 		private static const SOLIDITY : int = 3;	
@@ -97,7 +99,9 @@ package com.stdva.malibu.vpaint
 			sn.scaleY = sn.scaleX;
 			sn.x = point.x - sn.width/2;
 			sn.y = point.y - sn.height/2;
+			
 			history.currentLayer.bitmapData.draw(sn, sn.transform.matrix);
+			history.changed = true;
 		}
 		
 		public function mouseMove( point : Point, buttonDown : Boolean ) : void 
@@ -127,6 +131,7 @@ package com.stdva.malibu.vpaint
 			}
 			else
 			{//мышка не нажата
+				stopDraw();
 				_lastPoint  = null;
 				stepper = 0;
 				

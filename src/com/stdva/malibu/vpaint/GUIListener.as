@@ -4,6 +4,7 @@ package com.stdva.malibu.vpaint
 	
 	import flash.display.DisplayObject;
 	import flash.display.Stage;
+	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.ui.Mouse;
@@ -32,14 +33,11 @@ package com.stdva.malibu.vpaint
 		{
 				var bitmapPoint : Point = history.currentLayer.globalToLocal (new Point(e.stageX,e.stageY))
 				drawingParams.currentTool.mouseMove(bitmapPoint, e.buttonDown);
-				
-				
 		}
 		
 		private function onMouseDown(e : MouseEvent) : void
 		{
 			var bitmapPoint : Point = history.currentLayer.globalToLocal (new Point(e.stageX,e.stageY))
-			
 			drawingParams.currentTool.mouseDown(bitmapPoint);
 		}
 		
@@ -71,22 +69,10 @@ package com.stdva.malibu.vpaint
 			painterWindow.frame5.addEventListener(MouseEvent.MOUSE_DOWN,onFrame5)
 			painterWindow.frame6.addEventListener(MouseEvent.MOUSE_DOWN,onFrame6)
 		
-			painterWindow.addEventListener(MouseEvent.MOUSE_MOVE,onMoveOverStage)
-				
+			//painterWindow.addEventListener(MouseEvent.MOUSE_MOVE,onMoveOverStage)
+			painterWindow.addEventListener(Event.ENTER_FRAME,onDoFrame);	
 		} 
-		private function onMoveOverStage (e : MouseEvent) : void
-		{
-			var p : Point = history.currentLayer.globalToLocal (new Point(e.stageX,e.stageY));
-			if (p.x >=0 && p.y>=0 && p.x <=history.currentLayer.width && p.y <= history.currentLayer.height )
-			{//на бутылке
-				//Mouse.hide();
-				//addEvent
-			}
-			else
-			{
-				//Mouse.show();
-			}
-		}
+		
 		
 		public function onFrame1 ( e : *) : void
 		{
@@ -150,6 +136,10 @@ package com.stdva.malibu.vpaint
 			painterWindow.frame6.alpha = 1
 		}
 		
+		private function onDoFrame(e : *) : void
+		{
+			
+		}
 		
 	}
 }

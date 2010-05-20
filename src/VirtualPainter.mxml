@@ -15,7 +15,6 @@
 			 upSkin:Embed(skinClass="MyColorPicker");  
 			 disabledSkin:Embed(skinClass="MyColorPicker");  
 			 downSkin:Embed(skinClass="MyColorPicker");  
-			 
 		}
 	</mx:Style>
 
@@ -28,6 +27,7 @@
 			import com.stdva.malibu.vpaint.BDDrawTool;
 			import com.stdva.malibu.vpaint.DrawingParams;
 			import com.stdva.malibu.vpaint.GUIListener;
+			import com.stdva.malibu.vpaint.MaskColorPicker;
 			
 			import mx.controls.ColorPicker;
 			import mx.events.ColorPickerEvent;
@@ -45,8 +45,6 @@
 			[Autowire]
 			public function set painterWindow( window : PainterWindow ) : void {
 				
-			
-				
 				_painterWindow = window;
 				
 				trace( window.width );
@@ -54,12 +52,13 @@
 				
 				rawChildren.addChild( _painterWindow );
 				
-				var colorPicker : ColorPicker = new ColorPicker();
+				var colorPicker : ColorPicker = new MaskColorPicker();
 				colorPicker.x = _painterWindow.picker.x;
-				colorPicker.y = _painterWindow.picker.y;
+				colorPicker.y = _painterWindow.picker.y+ _painterWindow.picker.height;
 				_painterWindow.picker.visible = false;
-				colorPicker.width=30;
-				colorPicker.height=30;
+				
+				colorPicker.width=0;
+				colorPicker.height=0;
 				colorPicker.styleName="myColorPicker";
 				rawChildren.addChild(colorPicker);
 				drawingParams.color = colorPicker.selectedColor;
@@ -67,6 +66,7 @@
 				{
 					drawingParams.color = colorPicker.selectedColor;
 				});
+				
 			}
 
 		]]>

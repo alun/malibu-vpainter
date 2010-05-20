@@ -1,13 +1,16 @@
 package com.stdva.malibu.vpaint
 {
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
+	
 	import org.swizframework.Swiz;
 	import org.swizframework.factory.IInitializingBean;
 
-	public class DrawingParams implements IInitializingBean
+	public class DrawingParams extends EventDispatcher implements IInitializingBean
 	{
 		
-		public static const MAX_BRUSH_SIZE = 50;
-		public static const MIN_BRUSH_SIZE = 5;
+		public static const MAX_BRUSH_SIZE : int= 50;
+		public static const MIN_BRUSH_SIZE : int = 5;
 		
 		
 		
@@ -28,9 +31,17 @@ package com.stdva.malibu.vpaint
 		[Autowire(bean="alphaSlider")]
 		public var alphaSlider : MySlider;
 		
+		public static const CHANGED : String = "Changed";
 		public function initialize() : void 
 		{
 			currentTool = toolSet.tools[0];	
+			
+			
+			
+			 alphaSlider.addEventListener(MySlider.CHANGED,function (e :*) : void 
+			 {
+			 	dispatchEvent (new Event(CHANGED));
+			 });
 			
 			//color = 0xFF0000;
 			//brushSize = 40;
@@ -41,6 +52,8 @@ package com.stdva.malibu.vpaint
 		{
 			return MIN_BRUSH_SIZE + (MAX_BRUSH_SIZE-MIN_BRUSH_SIZE)*widthSlider.value/100;
 		}
+		
+		[Bindable(event="Changed")]
 		public function get opacity () : Number
 		{
 			return alphaSlider.value/100;
