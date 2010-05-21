@@ -15,13 +15,16 @@ package com.stdva.malibu.vpaint
 
 	public class History implements IInitializingBean
 	{
-		public const HISTORY_SIZE : Number = 20;
+		public const HISTORY_SIZE : Number = 10;
 		
 		[Autowire]
 		public var painterWindow : PainterWindow;
 		
 		[Autowire][Bindable]
 		public var drawingParams : DrawingParams;
+		
+		[Autowire]
+		public var guiListener : GUIListener;
 		
 		/*
 		 * Картинка на которой сейчас рисуем
@@ -99,6 +102,7 @@ package com.stdva.malibu.vpaint
 		 * Начинает новый слой истории 
 		 */
 		public var changed : Boolean = false;
+		private var redoArray : Array = [];
 		public function checkout() : void {
 		
 			if (changed)
@@ -114,6 +118,7 @@ package com.stdva.malibu.vpaint
 				b.bitmapData.draw(s);
 				
 				_historyLayers.push(recentLayer.bitmapData);
+				historyLimit () ;
 				
 				recentLayer = new Bitmap(b.bitmapData);
 				currentLayer = createLayer();
@@ -123,18 +128,79 @@ package com.stdva.malibu.vpaint
 				var idx : int = painterWindow.getChildIndex( painterWindow.bottle );
 				painterWindow.addChildAt( recentLayer, idx + 1 );
 				painterWindow.addChildAt( currentLayer, idx + 2 );
+				
+				redoArray=[];
+				checkButtons ();
 			}
 			changed = false;
 			
+			
+		}
+		
+		private function checkButtons () : void
+		{
+			if (_historyLayers.length)
+			{
+				guiListener.backActive = true;
+			}
+			else
+			{
+				guiListener.backActive = false;
+			}
+			
+			if (redoArray.length)
+			{
+				guiListener.forwardActive = true;
+			}
+			else
+			{
+				guiListener.forwardActive = false;
+			}
 		}
 		
 		public function undo() : void {
 			
-			
+			if  (_historyLayers.length)
+			{
+				painterWindow.removeChild(  recentLayer );
+				redoArray.push(recentLayer.bitmapData);
+				historyLimit () ;
+					
+				recentLayer = new Bitmap (_historyLayers.pop());
+				var idx : int = painterWindow.getChildIndex( painterWindow.bottle );
+				painterWindow.addChildAt( recentLayer, idx + 1 );
+			}
+			checkButtons () ;
 		}
 
 		public function redo() : void {
+			if (redoArray.length)
+			{
+				painterWindow.removeChild(  recentLayer );
+				_historyLayers.push(recentLayer.bitmapData);
+				historyLimit () ;
+					
+				recentLayer = new Bitmap (redoArray.pop());
+				var idx : int = painterWindow.getChildIndex( painterWindow.bottle );
+				painterWindow.addChildAt( recentLayer, idx + 1 );
+			}
+			checkButtons () ;
+		}
+		
+		private function historyLimit () : void
+		{
+			if (_historyLayers.length > HISTORY_SIZE)
+			{
+				_historyLayers.splice(0,_historyLayers.length - HISTORY_SIZE);
+			}
+			
+			if (redoArray.length > HISTORY_SIZE)
+			{
+				redoArray.splice(0,redoArray.length - HISTORY_SIZE);
+			}			
 			
 		}
+		
+		
 	}
 }

@@ -67,6 +67,9 @@
 					drawingParams.color = colorPicker.selectedColor;
 				});
 				
+				_painterWindow.backActive.visible = false;
+				_painterWindow.forwardActive.visible = false;
+				
 			}
 
 		]]>

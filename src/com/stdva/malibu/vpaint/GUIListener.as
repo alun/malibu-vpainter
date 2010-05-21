@@ -71,7 +71,33 @@ package com.stdva.malibu.vpaint
 		
 			//painterWindow.addEventListener(MouseEvent.MOUSE_MOVE,onMoveOverStage)
 			painterWindow.addEventListener(Event.ENTER_FRAME,onDoFrame);	
+		
+			painterWindow.backActive.addEventListener(MouseEvent.MOUSE_DOWN,onGoBack);
+			painterWindow.forwardActive.addEventListener(MouseEvent.MOUSE_DOWN,onGoForward);
+			
 		} 
+		
+		private function onGoBack (e : *) : void
+		{
+			history.undo();
+		}
+		
+		private function onGoForward (e : *) : void
+		{
+			history.redo();
+		}
+		
+		public  function set backActive ( b : Boolean) : void
+		{
+			painterWindow.backActive.visible = b;
+			painterWindow.backPassive.visible = !b;
+		}
+		public function set forwardActive (b : Boolean) : void
+		{
+			painterWindow.forwardActive.visible = b;
+			painterWindow.forwardPassive.visible = !b;
+		}
+		
 		
 		
 		public function onFrame1 ( e : *) : void
