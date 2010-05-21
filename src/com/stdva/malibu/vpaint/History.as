@@ -15,7 +15,7 @@ package com.stdva.malibu.vpaint
 
 	public class History implements IInitializingBean
 	{
-		public const HISTORY_SIZE : Number = 10;
+		public const HISTORY_SIZE : Number = 100;
 		
 		[Autowire]
 		public var painterWindow : PainterWindow;
@@ -36,10 +36,13 @@ package com.stdva.malibu.vpaint
 		*/
 		private var recentLayer : Bitmap;
 		
+		public var currentSprite : Sprite;
+		
 		/*
 		 * Массив последних картинок
 		 */
 		private var _historyLayers : Array = [];
+		private var currentSpriteMask : DisplayObject;
 		
 		
 		public function initialize() : void {
@@ -47,12 +50,18 @@ package com.stdva.malibu.vpaint
 			currentLayer = createLayer();
 			currentLayer.alpha = drawingParams.opacity;
 			recentLayer = createLayer();
+			currentSprite= new Sprite;
+			currentSprite.alpha = drawingParams.opacity;
 			
 			var bottle : DisplayObject = painterWindow.bottle;
 			
 			var idx : int = painterWindow.getChildIndex( bottle );
 			
 			currentLayer.mask = painterWindow.maskArea;
+			currentSpriteMask = new bottleMask;
+			currentSpriteMask.x =  painterWindow.maskArea.x;
+			currentSpriteMask.y =  painterWindow.maskArea.y;
+			currentSprite.mask = currentSpriteMask;
 			
 			var bottleOverlay : Bitmap = new Bitmap( new Bottle(0,0) );
 			bottleOverlay.blendMode = BlendMode.MULTIPLY;
@@ -62,11 +71,13 @@ package com.stdva.malibu.vpaint
 			
 			painterWindow.addChildAt( recentLayer, idx + 1 );
 			painterWindow.addChildAt( currentLayer, idx + 2 );
-			painterWindow.addChildAt( bottleOverlay, idx + 3 );
+			painterWindow.addChildAt( currentSprite, idx + 2 );
+			painterWindow.addChildAt( bottleOverlay, idx + 4 );
 			
 			drawingParams.addEventListener(DrawingParams.CHANGED,function (e : *) : void 
 			{
 				currentLayer.alpha = drawingParams.opacity;
+				currentSprite.alpha = drawingParams.opacity;
 			});
 		}
 		
@@ -109,10 +120,12 @@ package com.stdva.malibu.vpaint
 			{
 				painterWindow.removeChild(  recentLayer );
 				painterWindow.removeChild( currentLayer );
+				painterWindow.removeChild(currentSprite);
 				
 				var s : Sprite = new Sprite;
 				s.addChild(recentLayer);
 				s.addChild(currentLayer);
+				s.addChild(currentSprite);
 				
 				var b : Bitmap = createLayer();
 				b.bitmapData.draw(s);
@@ -125,13 +138,22 @@ package com.stdva.malibu.vpaint
 				currentLayer.alpha = drawingParams.opacity;
 				currentLayer.mask = painterWindow.maskArea;
 				
+				currentSprite = new Sprite;
+				currentSprite.alpha = drawingParams.opacity;
+				currentSprite.mask = currentSpriteMask;
+				//currentSprite.mask = painterWindow.maskArea;
+				
 				var idx : int = painterWindow.getChildIndex( painterWindow.bottle );
 				painterWindow.addChildAt( recentLayer, idx + 1 );
 				painterWindow.addChildAt( currentLayer, idx + 2 );
+				painterWindow.addChildAt(currentSprite,idx + 3);
+				
 				
 				redoArray=[];
 				checkButtons ();
+			
 			}
+			
 			changed = false;
 			
 			

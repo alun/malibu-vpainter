@@ -17,10 +17,14 @@
 			 downSkin:Embed(skinClass="MyColorPicker");  
 		}
 	</mx:Style>
+	
+	<mx:Style source="global.css"/>
+	
 
 	
 	<!--<mx:ColorPicker id="cp" styleName="myColorPicker"/>
 	-->
+	
 	<mx:Script>
 		<![CDATA[
 			import com.stdva.malibu.PainterWindow;
@@ -42,26 +46,30 @@
 			[Autowire]
 			public var drawingParams : DrawingParams;
 			
+			private var colorPicker : ColorPicker;
+			
 			[Autowire]
 			public function set painterWindow( window : PainterWindow ) : void {
 				
 				_painterWindow = window;
 				
-				trace( window.width );
-				trace( window.height );
+				//trace( window.width );
+				//trace( window.height );
 				
 				rawChildren.addChild( _painterWindow );
 				
-				var colorPicker : ColorPicker = new MaskColorPicker();
-				colorPicker.x = _painterWindow.picker.x;
-				colorPicker.y = _painterWindow.picker.y+ _painterWindow.picker.height;
-				_painterWindow.picker.visible = false;
+				colorPicker = new MaskColorPicker();
+				_painterWindow.settings.picker.visible = false;
 				
 				colorPicker.width=0;
 				colorPicker.height=0;
 				colorPicker.styleName="myColorPicker";
 				rawChildren.addChild(colorPicker);
+				//_painterWindow.addChild(colorPicker);
 				drawingParams.color = colorPicker.selectedColor;
+				
+				layoutPicker();
+				
 				colorPicker.addEventListener(ColorPickerEvent.CHANGE,function (e:*) : void 
 				{
 					drawingParams.color = colorPicker.selectedColor;
@@ -69,7 +77,15 @@
 				
 				_painterWindow.backActive.visible = false;
 				_painterWindow.forwardActive.visible = false;
-				
+			}
+			
+			public function layoutPicker () : void
+			{
+				var settingsPoint : Point = new Point (_painterWindow.settings.picker.x, _painterWindow.settings.picker.y );
+				var stagePoint : Point = _painterWindow.settings.localToGlobal(settingsPoint);
+				var painterWindowPoint : Point = _painterWindow.globalToLocal(stagePoint);
+				colorPicker.x = painterWindowPoint.x;
+				colorPicker.y = painterWindowPoint.y+ _painterWindow.settings.picker.height;
 			}
 
 		]]>

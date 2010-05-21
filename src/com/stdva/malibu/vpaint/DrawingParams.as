@@ -9,8 +9,8 @@ package com.stdva.malibu.vpaint
 	public class DrawingParams extends EventDispatcher implements IInitializingBean
 	{
 		
-		public static const MAX_BRUSH_SIZE : int= 50;
-		public static const MIN_BRUSH_SIZE : int = 5;
+		public static const MAX_BRUSH_SIZE : int= 150;
+		public static const MIN_BRUSH_SIZE : int = 3;
 		
 		
 		
@@ -34,7 +34,7 @@ package com.stdva.malibu.vpaint
 		public static const CHANGED : String = "Changed";
 		public function initialize() : void 
 		{
-			currentTool = toolSet.tools[0];	
+			currentTool = toolSet.tools[6];	
 			
 			
 			

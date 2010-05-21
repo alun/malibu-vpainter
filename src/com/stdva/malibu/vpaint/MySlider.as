@@ -1,15 +1,20 @@
 package com.stdva.malibu.vpaint
 {
+	import com.stdva.malibu.PainterWindow;
+	
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.MouseEvent;
 	import flash.filters.DisplacementMapFilter;
+	import flash.geom.Point;
 	
 	import mx.events.ModuleEvent;
 	
 	import org.swizframework.factory.IInitializingBean;
+	
+
 
 	public class MySlider extends EventDispatcher implements IInitializingBean 
 	{
@@ -37,14 +42,27 @@ package com.stdva.malibu.vpaint
 		}
 		private function onMouseDown (e : MouseEvent) : void
 		{
-			toGoX =  e.stageX;
+			toGoX = scale.x + e.localX;
+			
+			/*
+			var stagePoint : Point  = new Point (e.stageX,e.stageY)
+			var settingsPoint : Point = painterWindow.globalToLocal(stagePoint);
+			toGoX = settingsPoint.x;
+			*/
 			//todder.x = e.stageX;
 		}
 		private function onMouseMove (e : MouseEvent) : void
 		{
 			if (e.buttonDown)
 			{
-				toGoX = e.stageX;
+				toGoX = scale.x + e.localX;
+				
+				/*
+				var stagePoint : Point  = new Point (e.stageX,e.stageY)
+				var settingsPoint : Point = painterWindow.globalToLocal(stagePoint);
+				toGoX = settingsPoint.x;
+				*/
+				//toGoX = e.stageX;
 				//todder.x = e.stageX;
 			}
 		}

@@ -27,57 +27,44 @@ package com.stdva.malibu.vpaint
 		public var brushClass : Class;
 		
 		public var cursor : Sprite;
+		public var icon : Sprite;
 		
 		public function initialize() : void {
 			if( brushClass == null ) {
 				throw new Error("Класс кисти не указан");
 			}
-			//_brush = new brushClass(30,30);
+			/*
 			cursor = new Sprite;
 			cursor.addChild(new Bitmap(new brushClass(30,30)));
+		*/
 		}
 		
-		//private var _brush : BitmapData;
-		//private var _mouseDown : Boolean = false;
 		private var _lastPoint : Point = null; 
 		private var stepper :  Number = 0;
-		//private var clickBitmap : BitmapData;
 		
 		public var tempDrawTarget : BitmapData;
 		
 		public function mouseDown( point : Point ) : void 
 		{
 			beginDraw(point);
-			//trace (point.x.toString() + " " +point.y.toString()  )
-			
 	   } 
+		
 		public function beginDraw (point : Point) : void
 		{
 			_lastPoint = point;
 			stepper = 0;
-			
 			drawInPoint(point);
-			
-		/*
-			tempDrawTarget = new BitmapData(history.currentState.width, history.currentState.height,true);
-		
-			tempDrawTarget.colorTransform(rect,new ColorTransform(1,1,1,0,0,0,0,0));
-			*/
-			//
-			
-			//history.currentState.draw(tempDrawTarget);
 		}
+		
 		public function stopDraw () : void
 		{
-			//tempDrawTarget.colorTransform(rect,new ColorTransform(1,1,1,0.5,0,0,0,0))
 			history.checkout();
+		
 		}
 		
 
 		public function mouseUp( point : Point ) : void 
 		{
-			//_mouseDown = false;
-			//history.checkout();
 			_lastPoint = null;
 			stopDraw();
 		} 
@@ -138,6 +125,8 @@ package com.stdva.malibu.vpaint
 			}
 			
 		}
+		public function pushKey (k : int) : void
+		{}
 		
 		
 			
