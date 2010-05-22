@@ -26,9 +26,6 @@ package com.stdva.malibu.vpaint
 		
 		public var brushClass : Class;
 		
-		public var cursor : Sprite;
-		public var icon : Sprite;
-		
 		public function initialize() : void {
 			if( brushClass == null ) {
 				throw new Error("Класс кисти не указан");
@@ -125,8 +122,13 @@ package com.stdva.malibu.vpaint
 			}
 			
 		}
-		public function pushKey (k : int) : void
-		{}
+		
+		public function get icon () : DisplayObject
+		{
+			var bmData : BitmapData = new brushClass(100,100)
+			var bm : Bitmap = new Bitmap(bmData )
+			return bm;
+		}
 		
 		
 			

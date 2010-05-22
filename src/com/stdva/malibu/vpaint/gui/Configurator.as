@@ -15,8 +15,8 @@ package com.stdva.malibu.vpaint.gui
 		
 		
 		public function initialize() : void {
-			trace( window.bottle.x );
-			trace( window.bottle.y );
+			//trace( window.bottle.x );
+			//trace( window.bottle.y );
 		}
 		
 	}

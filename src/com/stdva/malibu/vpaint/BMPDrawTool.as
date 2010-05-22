@@ -2,6 +2,7 @@ package com.stdva.malibu.vpaint
 {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.geom.ColorTransform;
 	import flash.geom.Point;
@@ -142,9 +143,12 @@ package com.stdva.malibu.vpaint
 			return max;
 		}
 		
-		public function pushKey (k : int) : void
-		{}
-	
+		public function get icon () : DisplayObject
+		{
+			var bm : Bitmap = new Bitmap(brushSample )
+			return bm;
+		}
+
 	
 	}
 }

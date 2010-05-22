@@ -64,7 +64,12 @@
 				colorPicker.width=0;
 				colorPicker.height=0;
 				colorPicker.styleName="myColorPicker";
-				rawChildren.addChild(colorPicker);
+				
+				
+				//_painterWindow.settings.addChild(colorPicker);
+				//rawChildren.
+				addChild(colorPicker);
+				
 				//_painterWindow.addChild(colorPicker);
 				drawingParams.color = colorPicker.selectedColor;
 				
@@ -77,6 +82,8 @@
 				
 				_painterWindow.backActive.visible = false;
 				_painterWindow.forwardActive.visible = false;
+			
+				
 			}
 			
 			public function layoutPicker () : void

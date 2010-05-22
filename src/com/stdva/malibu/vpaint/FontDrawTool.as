@@ -2,10 +2,14 @@ package com.stdva.malibu.vpaint
 {
 	import com.stdva.malibu.PainterWindow;
 	
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.display.Stage;
 	import flash.events.FocusEvent;
 	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
@@ -37,62 +41,69 @@ package com.stdva.malibu.vpaint
 		private var currentTextField : TextField;
 		private var currentTextFormat : TextFormat;
 		
-		public function mouseDown(point:Point):void
+		private function beginDraw (point:Point) : void
 		{
-			
 			if (currentTextField)
-			{
-				currentTextField.border=false;
-			}
+				stopDraw();
 			
-			
-			var s : Sprite = new Sprite();
 			var textField : TextField = new TextField();
 			var textFormat : TextFormat = new TextFormat ();
-			
 			textField.embedFonts=true;
 			textField.selectable = false;
 			textField.border=true;
 			textField.autoSize=TextFieldAutoSize.LEFT;
-			
 			currentTextField = textField;
-			//textField.wordWrap=true;
 			
-			textFormat.size = 30;
+			textFormat.size = int(drawingParams.brushSize);
 			textFormat.color = drawingParams.color;
 			textFormat.font=fontFamily;
 			
 			currentTextFormat = textFormat;
 			
-			//textField.y = 250;
 			textField.text=" ";//adsfasdhfjuhyrfvjhnksdfjklgsdhfjklghsdlfhgfjf";
 			textField.setTextFormat(textFormat);
 			
-			s.addChild(textField);
+			textField.x = point.x;
+			textField.y=point.y - textField.height/2;
 			
+			history.currentSprite.addChild(textField);	
 			
-			
-			s.x = point.x;
-			s.y=point.y - textField.height/2;
-			
-			
-			
-			history.currentSprite.addChild(s);	
-			s.stage.focus = textField;
-			
+			textField.stage.focus = textField;
 			
 			textField.type = "input"
-			
-				
 			textField.addEventListener(KeyboardEvent.KEY_DOWN,onKeyDown);
 			textField.addEventListener(FocusEvent.FOCUS_OUT,onFinishDraw);
+			textField.stage.addEventListener(MouseEvent.CLICK,onFinishDraw)
+			
+			currentTextFormat = textFormat;
+			currentTextField = textField;
+			
+		}
 		
+		private function stopDraw () : void
+		{
+			if (currentTextField)
+			{
+				//currentTextField.appendText("q");
+				currentTextField.border=false;
+				history.checkout();
+				currentTextField.removeEventListener(KeyboardEvent.KEY_DOWN,onKeyDown);
+				currentTextField.removeEventListener(FocusEvent.FOCUS_OUT,onFinishDraw);
+				//currentTextField.stage.removeEventListener(MouseEvent.CLICK,onFinishDraw)
+				
+				currentTextField=null;
+				currentTextFormat=null;
+			}
+		}
+		
+		public function mouseDown(point:Point):void
+		{
+			beginDraw(point);
 		}
 		
 		public function onFinishDraw (e : * = null) : void
 		{
-			currentTextField.border=false;
-			history.checkout();
+			stopDraw();
 		}
 		
 		public function mouseUp(point:Point):void
@@ -113,14 +124,38 @@ package com.stdva.malibu.vpaint
 		public function onKeyDown (e : KeyboardEvent) : void
 		{
 			currentTextField.appendText("");
+			history.changed=Boolean(currentTextField.text.length);
 		}
 		
-		public function pushKey (k : int) : void
+		public function get icon () : DisplayObject
 		{
-			//currentTextField.appendText("adsf");
-    	}
-		
-		
-		
+			var textField : TextField = new TextField();
+			var textFormat : TextFormat = new TextFormat ();
+			textField.embedFonts=true;
+			textField.selectable = false;
+			//textField.border=true;
+			textField.autoSize=TextFieldAutoSize.LEFT;
+			//currentTextField = textField;
+			
+			textFormat.size =35;// int(drawingParams.brushSize);
+			textFormat.color = 0x000000;
+			textFormat.font=fontFamily;
+			
+			//currentTextFormat = textFormat;
+			
+			textField.text="Aa";//adsfasdhfjuhyrfvjhnksdfjklgsdhfjklghsdlfhgfjf";
+			textField.setTextFormat(textFormat);
+			
+			var s : Sprite = new Sprite;
+			s.addChild(textField);
+			//s.width = 100;
+			//s.height = 100;
+			
+			var bmd : BitmapData = new BitmapData(s.width,s.height);
+			bmd.draw(s);
+			var bm : Bitmap = new Bitmap(bmd);
+			
+			return bm;
+		}
 	}
 }

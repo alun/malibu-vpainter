@@ -28,6 +28,8 @@
 	<vpaint:MySlider id="widthSlider" scale="{painterWindow.settings.widthSliderScale}" todder="{painterWindow.settings.widthSliderTodder}"/>
 	<vpaint:MySlider id="alphaSlider" scale="{painterWindow.settings.alphaSliderScale}" todder="{painterWindow.settings.alphaSliderTodder}"/>
 	
+	<vpaint:ToolSelecter id="toolselecter"/>
+	
 	<vpaint:ToolSet id="toolset">
 		<vpaint:BDDrawTool id="brush1" brushClass="{com.stdva.malibu.brushes.b1}"/>
 		<vpaint:BDDrawTool id="brush2" brushClass="{com.stdva.malibu.brushes.b2}"/>
@@ -36,6 +38,8 @@
 		<vpaint:BDDrawTool id="brush5" brushClass="{com.stdva.malibu.brushes.b5}"/>
 		
 		<vpaint:BMPDrawTool id="bmpBrush1" brushClass="{com.stdva.malibu.bitmaps.b1}"/>
+		<vpaint:BMPDrawTool id="bmpBrush2" brushClass="{com.stdva.malibu.bitmaps.b2}"/>
+		<vpaint:BMPDrawTool id="bmpBrush3" brushClass="{com.stdva.malibu.bitmaps.b3}"/>
 	
 		<vpaint:FontDrawTool fontFamily="{'TatianaC'}" id="font1Tool" />
 	</vpaint:ToolSet>

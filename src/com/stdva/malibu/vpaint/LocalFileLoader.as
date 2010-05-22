@@ -25,7 +25,7 @@ package com.stdva.malibu.vpaint
 		[Autowire]
 		public var drawingParams : DrawingParams;
 		
-		var file : FileReference;
+		private var file : FileReference;
 		
 		public function LocalFileLoader()
 		{
