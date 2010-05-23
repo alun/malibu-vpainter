@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application layout="absolute" minWidth="955" minHeight="600"
+				usePreloader="false"
 	xmlns:swiz="http://swiz.swizframework.org"
 	xmlns:mx="http://www.adobe.com/2006/mxml"> 
 	
@@ -48,8 +49,44 @@
 			
 			private var colorPicker : ColorPicker;
 			
+			
+			private function initTools() : void {
+				var brushes : Brushes = new Brushes();
+				
+				var toolsMap : Object  = {};
+				var pattern:RegExp = /([a-z]{1,2})(\d{1,2})/;
+
+				for( var i : int = 0; i < brushes.numChildren; ++i ) {
+					var child : DisplayObject = brushes.getChildAt( i );
+					
+					var result : Object = pattern.exec( child.name );
+					
+					if( result != null ) {
+						
+						group = result[1];
+						var order : Number = result[2];
+						
+						if( toolsMap[ group ] == null ) {
+							toolsMap[ group ] = [];
+						}
+						toolsMap[ group ][ order ] = child;
+					}
+				}
+				
+				for( var group : String in toolsMap ) {
+					for( i = 0; i < toolsMap[ group ].length; ++i ) {
+						if( toolsMap[ group ][i] != null ) {
+							// добавить в тулзы
+							trace( group, ' ', i, ' ', toolsMap[ group ][i] );
+						}
+					}
+				}
+			} 
+			
 			[Autowire]
 			public function set painterWindow( window : PainterWindow ) : void {
+				
+				initTools();
 				
 				_painterWindow = window;
 				
@@ -99,3 +136,4 @@
 	</mx:Script>
 	
 </mx:Application>
+
