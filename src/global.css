@@ -1,0 +1,22 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+
+
+
+@font-face 
+{
+	src: url("TatianaC.otf");
+	fontWeight: bold;
+	fontFamily: TatianaC;
+}
+
+@font-face 
+{
+	src: url("HeliosCondBlackC.otf");
+	fontWeight: bold;
+	fontFamily: HeliosCondBlackC;
+}
+
+
