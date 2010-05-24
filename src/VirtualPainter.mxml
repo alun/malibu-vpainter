@@ -30,25 +30,35 @@
 		<![CDATA[
 			import com.stdva.malibu.PainterWindow;
 			import com.stdva.malibu.vpaint.BDDrawTool;
+			import com.stdva.malibu.vpaint.BMPDrawTool;
 			import com.stdva.malibu.vpaint.DrawingParams;
+			import com.stdva.malibu.vpaint.FillTool;
 			import com.stdva.malibu.vpaint.GUIListener;
 			import com.stdva.malibu.vpaint.MaskColorPicker;
+			import com.stdva.malibu.vpaint.ToolSet;
+			import com.stdva.malibu.vpaint.ToolTypes;
 			
 			import mx.controls.ColorPicker;
 			import mx.events.ColorPickerEvent;
 			import mx.events.FlexEvent;
 			
+			import org.swizframework.Swiz;
+			
 			private var _painterWindow : PainterWindow;
 			private var _addedToStage : Boolean = false;
 			
-			[Autiwire]
-			public var guiListener : GUIListener;
+			
 			
 			[Autowire]
 			public var drawingParams : DrawingParams;
 			
+			[Autowire]
+			public var toolSet : ToolSet;
+			
 			private var colorPicker : ColorPicker;
 			
+			[Autowire]
+			public var guiListener : GUIListener;
 			
 			private function initTools() : void {
 				var brushes : Brushes = new Brushes();
@@ -76,11 +86,47 @@
 				for( var group : String in toolsMap ) {
 					for( i = 0; i < toolsMap[ group ].length; ++i ) {
 						if( toolsMap[ group ][i] != null ) {
-							// добавить в тулзы
+							
 							trace( group, ' ', i, ' ', toolsMap[ group ][i] );
+							
+							if (group == "b" )
+							{
+								var tool : BDDrawTool = new BDDrawTool();
+								tool.type = ToolTypes.BRUSH;
+								tool.brushSampleSprite = toolsMap[ group ][i];
+
+								toolSet.tools.push( tool  );
+								Swiz.autowire(tool);
+							}
+							else
+							if (group == "rp")
+							{
+								var bmpTool : BMPDrawTool = new BMPDrawTool();
+								bmpTool.type = ToolTypes.READY_BITMAP;
+								bmpTool.brushSampleSprite = toolsMap[ group ][i];
+								bmpTool.initialize();
+								toolSet.tools.push( bmpTool  );
+								Swiz.autowire(bmpTool);
+							}
+							else
+							if (group == "fl")
+							{
+								var fillTool : FillTool = new FillTool();
+								fillTool.type = ToolTypes.FILL;
+								fillTool.brushSampleSprite = toolsMap[ group ][i];
+								fillTool.initialize();
+								toolSet.tools.push( fillTool  );
+								Swiz.autowire(fillTool);
+							}
+						
+							//toolSet.addTool(group, toolsMap[ group ][i]);
+							//toolSet.tools.push( toolsMap [ group ] [i]  )
+						
 						}
 					}
 				}
+				guiListener.onBrushes(null);
+				
 			} 
 			
 			[Autowire]
@@ -107,6 +153,11 @@
 				//rawChildren.
 				addChild(colorPicker);
 				
+				/*
+				var bd : BitmapData;
+				bd.threshold(
+				*/
+				
 				//_painterWindow.addChild(colorPicker);
 				drawingParams.color = colorPicker.selectedColor;
 				
@@ -119,7 +170,6 @@
 				
 				_painterWindow.backActive.visible = false;
 				_painterWindow.forwardActive.visible = false;
-			
 				
 			}
 			
@@ -130,6 +180,20 @@
 				var painterWindowPoint : Point = _painterWindow.globalToLocal(stagePoint);
 				colorPicker.x = painterWindowPoint.x;
 				colorPicker.y = painterWindowPoint.y+ _painterWindow.settings.picker.height;
+			}
+			
+			public function hidePicker () : void
+			{
+				colorPicker.visible = false;
+			}
+			public function showPicker() : void
+			{
+				if (colorPicker)
+					colorPicker.visible = true;
+			}
+			
+			public function init() : void
+			{
 			}
 
 		]]>

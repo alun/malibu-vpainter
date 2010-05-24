@@ -34,7 +34,7 @@ package com.stdva.malibu.vpaint
 		/*
 		* Последняя картинка
 		*/
-		private var recentLayer : Bitmap;
+		public var recentLayer : Bitmap;
 		
 		public var currentSprite : Sprite;
 		

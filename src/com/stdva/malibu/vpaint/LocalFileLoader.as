@@ -25,6 +25,12 @@ package com.stdva.malibu.vpaint
 		[Autowire]
 		public var drawingParams : DrawingParams;
 		
+		[Autowire]
+		public var guiListener : GUIListener;
+		
+		[Autowire]
+		public var toolSelecter : ToolSelecter;
+		
 		private var file : FileReference;
 		
 		public function LocalFileLoader()
@@ -78,10 +84,15 @@ package com.stdva.malibu.vpaint
 			var tool : BMPDrawTool = new BMPDrawTool();
 			tool.brushSample = bitmapData;
 			tool.initialize();
+			tool.type=ToolTypes.LOADED_BITMAP;
 			Swiz.autowire(tool);
 			toolSet.tools.push(tool);
-			drawingParams.currentTool = tool;
-		
+			//drawingParams.currentTool = tool;
+			
+			guiListener.onUploadPictures(null);
+			
+			
+			
 		}
 
 		

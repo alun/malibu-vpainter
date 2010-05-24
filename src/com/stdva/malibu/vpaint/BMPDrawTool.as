@@ -14,6 +14,7 @@ package com.stdva.malibu.vpaint
 	{
 		public var brushClass : Class;
 		public var brushSample : BitmapData;
+		public var brushSampleSprite : DisplayObject;
 		
 		private var _lastPoint : Point = null; 
 		private var stepper :  Number = 0;
@@ -78,10 +79,17 @@ package com.stdva.malibu.vpaint
 		
 		public function initialize():void
 		{
-			if (!brushSample)
-				brushSample =  new brushClass(100,100)
-			radius = get100Radius ();
-			
+		if (brushSampleSprite)
+		{
+			brushSampleSprite.scaleX = brushSampleSprite.scaleY = 1;
+			brushSample = new BitmapData(brushSampleSprite.width, brushSampleSprite.height,true,0x000000)
+			brushSample.draw(brushSampleSprite);					
+		}	
+		
+		if (!brushSample)
+			brushSample =  new brushClass(100,100)
+		radius = get100Radius ();
+		
 		}
 		public function beginDraw (point : Point) : void
 		{
@@ -98,7 +106,27 @@ package com.stdva.malibu.vpaint
 		
 		private function drawInPoint (point : Point) : void
 		{
-			var sn : Sprite = new Sprite;
+			/*
+			brushSample = new BitmapData(brushSampleSprite.width, brushSampleSprite.height,true,0x000000)
+			brushSample.draw(brushSampleSprite);
+			*/
+		var sn : Sprite = new Sprite;
+			
+		//	var bmSprite : DisplayObject = brushSampleSprite;
+		//	bmSprite.scaleX = bmSprite.scaleY = 1;
+			
+			//var bmData : BitmapData = new BitmapData (brushSample.width, brushSample.height, true, 0x00000000);
+			//var colorTransform : ColorTransform = new ColorTransform(1, 1, 1, 1, 0, 0, 0, 1)
+			
+			//bmData.draw(bmSprite,null);
+			
+			var bm : Bitmap = new Bitmap(brushSample )
+			
+		//	var rect:Rectangle = new Rectangle(0, 0, bmData.width, bmData.height);
+			
+		//	colorTransform.color =drawingParams.color;		
+		//	bmData.colorTransform(rect,colorTransform);
+			sn.addChild(bm);
 			/*
 			if (brushSample)
 			{
@@ -110,11 +138,12 @@ package com.stdva.malibu.vpaint
 			}
 			*/
 			
-			var bm : Bitmap = new Bitmap(brushSample )
+			//var bm : Bitmap = new Bitmap(brushSample )
 			//var rect:Rectangle = new Rectangle(0, 0, bmData.width, bmData.height);
 			//var colorTransform : ColorTransform = new ColorTransform(1, 1, 1, 1, 0, 0, 0, 1)
 			//colorTransform.color =drawingParams.color;		
 			//bmData.colorTransform(rect,colorTransform);
+			
 			sn.addChild(bm);
 			sn.width = drawingParams.brushSize;
 			sn.scaleY = sn.scaleX;
@@ -145,9 +174,29 @@ package com.stdva.malibu.vpaint
 		
 		public function get icon () : DisplayObject
 		{
+			/*brushSampleSprite.width = 100;
+			brushSampleSprite.scaleY = brushSampleSprite.scaleX;
+			*/
+			//brushSample = new BitmapData(brushSampleSprite.width, brushSampleSprite.height,true,0x000000)
+			//brushSample.draw(brushSampleSprite);
 			var bm : Bitmap = new Bitmap(brushSample )
 			return bm;
 		}
+		
+		private var _type : String;
+		
+		
+		
+		
+		public function get type () : String
+		{
+			return _type;
+		}
+		public function set type (value : String) : void
+		{
+			_type = value;
+		}
+		
 
 	
 	}

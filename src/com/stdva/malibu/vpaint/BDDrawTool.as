@@ -25,15 +25,19 @@ package com.stdva.malibu.vpaint
 		public var drawingParams : DrawingParams;
 		
 		public var brushClass : Class;
+		public var brushSampleSprite : DisplayObject;
 		
 		public function initialize() : void {
+			/*
 			if( brushClass == null ) {
 				throw new Error("Класс кисти не указан");
 			}
+			*/
 			/*
 			cursor = new Sprite;
 			cursor.addChild(new Bitmap(new brushClass(30,30)));
 		*/
+						
 		}
 		
 		private var _lastPoint : Point = null; 
@@ -72,10 +76,18 @@ package com.stdva.malibu.vpaint
 		private function drawInPoint (point : Point) : void
 		{
 			var sn : Sprite = new Sprite;
-			var bmData : BitmapData = new brushClass(100,100)
-			var bm : Bitmap = new Bitmap(bmData )
-			var rect:Rectangle = new Rectangle(0, 0, bmData.width, bmData.height);
+			
+			var bmSprite : DisplayObject = brushSampleSprite;
+			bmSprite.scaleX = bmSprite.scaleY = 1;
+			var bmData : BitmapData = new BitmapData (bmSprite.width,bmSprite.height,true,0x00000000);
 			var colorTransform : ColorTransform = new ColorTransform(1, 1, 1, 1, 0, 0, 0, 1)
+			
+			bmData.draw(bmSprite,null);
+			
+			var bm : Bitmap = new Bitmap(bmData )
+				
+			var rect:Rectangle = new Rectangle(0, 0, bmData.width, bmData.height);
+			
 			colorTransform.color =drawingParams.color;		
 			bmData.colorTransform(rect,colorTransform);
 			sn.addChild(bm);
@@ -125,12 +137,23 @@ package com.stdva.malibu.vpaint
 		
 		public function get icon () : DisplayObject
 		{
-			var bmData : BitmapData = new brushClass(100,100)
+			var bmSprite : DisplayObject = brushSampleSprite;
+			
+			var bmData : BitmapData = new BitmapData(bmSprite.width, bmSprite.height,true,0x000000);
+			bmData.draw(bmSprite);
 			var bm : Bitmap = new Bitmap(bmData )
 			return bm;
 		}
 		
-		
+		private var _type : String;
+		public function get type () : String
+		{
+			return _type;
+		}
+		public function set type (value : String) : void
+		{
+			_type = value;
+		}
 			
 		
 	}

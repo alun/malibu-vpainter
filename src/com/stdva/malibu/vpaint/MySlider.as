@@ -71,6 +71,7 @@ package com.stdva.malibu.vpaint
 		private static const k : Number = 0.7;
 		
 		private var epsilon : Number = 2;
+		
 		private function doFrame (e : *) : void
 		{
 			if (Math.abs(todder.x - toGoX)>epsilon)

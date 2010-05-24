@@ -34,7 +34,7 @@ package com.stdva.malibu.vpaint
 		public static const CHANGED : String = "Changed";
 		public function initialize() : void 
 		{
-			currentTool = toolSet.tools[6];	
+			//currentTool = toolSet.tools[6];	
 			
 			
 			

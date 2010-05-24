@@ -10,5 +10,8 @@ package com.stdva.malibu.vpaint
 		function mouseMove( point : Point,buttonDown : Boolean ) : void;
 		
 		function get icon () : DisplayObject;
+		
+		function get type () : String;
+		function set type (v : String) : void;
 	}
 }

@@ -1,5 +1,7 @@
 package com.stdva.malibu.vpaint
 {
+	import flash.display.DisplayObject;
+	
 	import org.swizframework.factory.IInitializingBean;
 
 	[DefaultProperty("tools")]
@@ -12,7 +14,18 @@ package com.stdva.malibu.vpaint
 		public function initialize() : void {
 		}
 		
-		
-		
+		public function getWithType (type : String) : Array
+		{
+			var arr : Array = [];
+			for each (var tool : ITool in tools)
+			{
+				if (tool.type == type)
+					arr.push(tool);
+			}
+			return arr;
 		}
+	
+		
+		
+	}
 }

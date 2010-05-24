@@ -157,5 +157,15 @@ package com.stdva.malibu.vpaint
 			
 			return bm;
 		}
+		
+		private var _type : String;
+		public function get type () : String
+		{
+			return _type;
+		}
+		public function set type (value : String) : void
+		{
+			_type = value;
+		}
 	}
 }

@@ -5,6 +5,7 @@ package com.stdva.malibu.vpaint
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
+	import flash.display.Loader;
 	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
@@ -16,6 +17,7 @@ package com.stdva.malibu.vpaint
 	import flash.ui.Mouse;
 	
 	import mx.core.Application;
+	import mx.core.FlexGlobals;
 	
 	import org.swizframework.Swiz;
 	import org.swizframework.factory.IInitializingBean;
@@ -68,11 +70,13 @@ package com.stdva.malibu.vpaint
 		
 		public function initialize() : void 
 		{
+			onBrushes(null);
+			
 			painterWindow.bottle.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 			painterWindow.bottle.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
 			painterWindow.addEventListener(MouseEvent.MOUSE_MOVE, onMouseOut);
 
-			onBrushes(null);
+			
 		
 			
 			/*
@@ -97,70 +101,121 @@ package com.stdva.malibu.vpaint
 			painterWindow.addEventListener("item3",onFillings);
 			painterWindow.addEventListener("item4",onFonts);
 			painterWindow.addEventListener("item5",onUploadPictures);
+			painterWindow.addEventListener("Hide settings", onHideSettings);
 			
-			
+			painterWindow.settings.pagerForward.addEventListener(MouseEvent.MOUSE_DOWN,onPagerForward);
+			painterWindow.settings.pagerBack.addEventListener(MouseEvent.MOUSE_DOWN,onPagerBack);
 			
 			for each( var num : int in [0,1,2,3,4,5] ) {
 				function layoutPicker(v:*) : void {
 					var virtualPainter : VirtualPainter = Application.application as VirtualPainter;
 					virtualPainter.layoutPicker();
 				}
-				
 				painterWindow.addEventListener("item" + num, layoutPicker);
 			}
-			
-			
-			
 		} 
 		
-		private function onBrushes (e : *) : void
+		private function onPagerBack (e : *) : void
+		{
+			toolSelecter.back();
+		}
+		
+		private function onPagerForward (e : *) : void
+		{
+			toolSelecter.forward();
+		}
+		
+		private function onHideSettings (e : *) : void
+		{
+			var virtualPainter : VirtualPainter = Application.application as VirtualPainter;
+			virtualPainter.hidePicker();
+		}
+		
+		public function onBrushes (e : *) : void
 		{
 			painterWindow.settings.fileLoad.visible = false;
 			
+			var virtualPainter : VirtualPainter = FlexGlobals.topLevelApplication as VirtualPainter;//Application.application as VirtualPainter;
+			virtualPainter.showPicker();
 			
 			toolSelecter.reset();
-			toolSelecter.addTool( toolSet.tools[0]);
-			toolSelecter.addTool( toolSet.tools[1]);
-			toolSelecter.addTool( toolSet.tools[2]);
-			toolSelecter.addTool( toolSet.tools[3]);
-			toolSelecter.addTool( toolSet.tools[4]);
+			
+			for each (var tool : ITool in toolSet.getWithType(ToolTypes.BRUSH ))
+			{
+				toolSelecter.addTool(tool);
+			}
+
+			toolSelecter.goToFirst();
 			toolSelecter.layout();
 			
 		}
 		private function onFigureBrushes (e : *) : void
 		{
 			painterWindow.settings.fileLoad.visible = false;
+			
+			var virtualPainter : VirtualPainter = Application.application as VirtualPainter;
+			virtualPainter.showPicker();
+			
+			painterWindow.settings.fileLoad.visible = false;
+			
 			toolSelecter.reset();
+			
+			toolSelecter.goToFirst();
 			toolSelecter.layout();
 		}
 		private function onReadyPictures(e : *) : void
 		{
 			painterWindow.settings.fileLoad.visible = false;
+			
 			toolSelecter.reset();
-			toolSelecter.addTool( toolSet.tools[5]);
-			toolSelecter.addTool( toolSet.tools[6]);
-			toolSelecter.addTool( toolSet.tools[7]);
+			for each (var tool : ITool in toolSet.getWithType(ToolTypes.READY_BITMAP))
+			{
+				toolSelecter.addTool(tool);
+			}
+			toolSelecter.goToFirst();
 			toolSelecter.layout();
 		}
 		private function onFillings (e : *) : void
 		{
+			var virtualPainter : VirtualPainter = FlexGlobals.topLevelApplication as VirtualPainter;//Application.application as VirtualPainter;
+			virtualPainter.showPicker();
 			painterWindow.settings.fileLoad.visible = false;
 			toolSelecter.reset();
+			
+			for each (var tool : ITool in toolSet.getWithType(ToolTypes.FILL))
+			{
+				toolSelecter.addTool(tool);
+			}
+			
+			toolSelecter.goToFirst();
 			toolSelecter.layout();
 		}
 		private function onFonts(e : *) : void
 		{
-			painterWindow.settings.fileLoad.visible = false;
+			var virtualPainter : VirtualPainter = FlexGlobals.topLevelApplication as VirtualPainter;//Application.application as VirtualPainter;
+			virtualPainter.showPicker();
+
 			toolSelecter.reset();
-			toolSelecter.addTool( toolSet.tools[8]);
+			for each (var tool : ITool in toolSet.getWithType(ToolTypes.FONT))
+			{
+				toolSelecter.addTool(tool);
+			}
+			toolSelecter.goToFirst();
 			toolSelecter.layout();
 		}
-		private function onUploadPictures (e : *) :void
+		public function onUploadPictures (e : *) :void
 		{
 			painterWindow.settings.fileLoad.visible = true;
 			
 			toolSelecter.reset();
+			for each (var tool : ITool in toolSet.getWithType(ToolTypes.LOADED_BITMAP))
+			{
+				toolSelecter.addTool(tool);
+			}
+			
+			toolSelecter.goToLast();
 			toolSelecter.layout();
+
 		}
 		
 		
@@ -190,6 +245,15 @@ package com.stdva.malibu.vpaint
 		{
 			painterWindow.forwardActive.visible = b;
 			painterWindow.forwardPassive.visible = !b;
+		}
+		
+		public function set backPagerActive (b : Boolean) : void
+		{
+			painterWindow.settings.pagerBack.visible = b;
+		}
+		public function set forwardPagerActive (b : Boolean) : void
+		{
+			painterWindow.settings.pagerForward.visible = b;
 		}
 		
 		

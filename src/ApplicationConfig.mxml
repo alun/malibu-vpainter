@@ -9,8 +9,9 @@
 	<mx:Script>
 		<![CDATA[
 			import com.stdva.malibu.Bottle;
-			import com.stdva.malibu.brushes.b1;
 			import com.stdva.malibu.bitmaps.b1;
+			import com.stdva.malibu.brushes.b1;
+			import com.stdva.malibu.vpaint.ToolTypes;
 			
 		]]>
 	</mx:Script>
@@ -31,17 +32,8 @@
 	<vpaint:ToolSelecter id="toolselecter"/>
 	
 	<vpaint:ToolSet id="toolset">
-		<vpaint:BDDrawTool id="brush1" brushClass="{com.stdva.malibu.brushes.b1}"/>
-		<vpaint:BDDrawTool id="brush2" brushClass="{com.stdva.malibu.brushes.b2}"/>
-		<vpaint:BDDrawTool id="brush3" brushClass="{com.stdva.malibu.brushes.b3}"/>
-		<vpaint:BDDrawTool id="brush4" brushClass="{com.stdva.malibu.brushes.b4}"/>
-		<vpaint:BDDrawTool id="brush5" brushClass="{com.stdva.malibu.brushes.b5}"/>
-		
-		<vpaint:BMPDrawTool id="bmpBrush1" brushClass="{com.stdva.malibu.bitmaps.b1}"/>
-		<vpaint:BMPDrawTool id="bmpBrush2" brushClass="{com.stdva.malibu.bitmaps.b2}"/>
-		<vpaint:BMPDrawTool id="bmpBrush3" brushClass="{com.stdva.malibu.bitmaps.b3}"/>
-	
-		<vpaint:FontDrawTool fontFamily="{'TatianaC'}" id="font1Tool" />
+		<vpaint:EmptyTool id="emptyTool"/>
+		<vpaint:FontDrawTool fontFamily="{'TatianaC'}" type="{ToolTypes.FONT}" id="font1Tool" />
 	</vpaint:ToolSet>
 	
 </swiz:BeanLoader>
