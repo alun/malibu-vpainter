@@ -28,8 +28,9 @@
 	
 	<mx:Script>
 		<![CDATA[
-			import com.stdva.malibu.Fonts;
 			import com.stdva.malibu.AddToGalleryWindow;
+			import com.stdva.malibu.AddedToGaleryWindow;
+			import com.stdva.malibu.Fonts;
 			import com.stdva.malibu.PainterWindow;
 			import com.stdva.malibu.vpaint.BDDrawTool;
 			import com.stdva.malibu.vpaint.BMPDrawTool;
@@ -53,6 +54,9 @@
 			
 			[Autowire]
 			public var  addToGalleryWindow : AddToGalleryWindow;
+			
+			[Autowire]
+			public var addedWindow : AddedToGaleryWindow;
 			
 			[Autowire]
 			public var drawingParams : DrawingParams;
@@ -242,6 +246,20 @@
 					rawChildren.removeChild(addToGalleryWindow);
 				}
 			}
+			public function set showAddedToGallery (b : Boolean) : void
+			{
+				if (b)
+				{
+					addedWindow.x = _painterWindow.lilWindowPlace.x ;
+					addedWindow.y = _painterWindow.lilWindowPlace.y;
+					rawChildren.addChild(addedWindow);
+				}
+				else
+				{
+					rawChildren.removeChild(addedWindow);
+				}
+			}
+			
 
 		]]>
 	</mx:Script>

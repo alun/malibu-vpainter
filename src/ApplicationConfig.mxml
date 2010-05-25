@@ -19,6 +19,7 @@
 	
 	<malibu:PainterWindow  id="painterWindow"/>
 	<malibu:AddToGalleryWindow id="addToGalleryWindow"/>
+	<malibu:AddedToGaleryWindow id="adedWindow"/>
 	<vpaint:AddToGalleryWindowControll id="addToGalleryControll"/>
 	<vpaint:History id="history" />
 	<vpaint:GUIListener id="guiListener" />
