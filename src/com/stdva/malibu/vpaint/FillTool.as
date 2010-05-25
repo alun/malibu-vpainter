@@ -84,6 +84,8 @@ package com.stdva.malibu.vpaint
 		private var height : int;
 		
 		
+		
+		
 		private function fill (p : Point) : void
 		{
 			

@@ -29,6 +29,7 @@
 	<mx:Script>
 		<![CDATA[
 			import com.stdva.malibu.Fonts;
+			import com.stdva.malibu.AddToGalleryWindow;
 			import com.stdva.malibu.PainterWindow;
 			import com.stdva.malibu.vpaint.BDDrawTool;
 			import com.stdva.malibu.vpaint.BMPDrawTool;
@@ -50,7 +51,8 @@
 			private var _painterWindow : PainterWindow;
 			private var _addedToStage : Boolean = false;
 			
-			
+			[Autowire]
+			public var  addToGalleryWindow : AddToGalleryWindow;
 			
 			[Autowire]
 			public var drawingParams : DrawingParams;
@@ -121,6 +123,15 @@
 								toolSet.tools.push( fillTool  );
 								Swiz.autowire(fillTool);
 							}
+							else
+							if (group == "fb" )
+							{
+								var fbTool : BDDrawTool = new BDDrawTool();
+								fbTool.type = ToolTypes.FIGURE_BRUSH;
+								fbTool.brushSampleSprite = toolsMap[ group ][i];	
+								toolSet.tools.push( fbTool  );
+								Swiz.autowire(fbTool);
+							}
 						
 							//toolSet.addTool(group, toolsMap[ group ][i]);
 							//toolSet.tools.push( toolsMap [ group ] [i]  )
@@ -170,10 +181,7 @@
 				{
 					drawingParams.color = colorPicker.selectedColor;
 				});
-				
-				_painterWindow.backActive.visible = false;
-				_painterWindow.forwardActive.visible = false;
-				
+			
 				
 				setUpFonts();
 			}
@@ -206,16 +214,33 @@
 			public function hidePicker () : void
 			{
 				colorPicker.visible = false;
+				_painterWindow.settings.colorLabel.visible = false;
 			}
 			public function showPicker() : void
 			{
 				if (colorPicker)
 					colorPicker.visible = true;
+				if (_painterWindow)
+					_painterWindow.settings.colorLabel.visible = true;
 			}
 			
 			public function init() : void
 			{
 				Fonts.showEmbeddedFonts();
+			}
+			
+			public function set showAddToGallery (b : Boolean) : void
+			{
+				if (b)
+				{
+					addToGalleryWindow.x = _painterWindow.lilWindowPlace.x ;
+					addToGalleryWindow.y = _painterWindow.lilWindowPlace.y;
+					rawChildren.addChild(addToGalleryWindow);
+				}
+				else
+				{
+					rawChildren.removeChild(addToGalleryWindow);
+				}
 			}
 
 		]]>

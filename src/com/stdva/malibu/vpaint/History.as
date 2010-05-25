@@ -11,6 +11,8 @@ package com.stdva.malibu.vpaint
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	
+	import mx.states.RemoveChild;
+	
 	import org.swizframework.factory.IInitializingBean;
 
 	public class History implements IInitializingBean
@@ -46,6 +48,8 @@ package com.stdva.malibu.vpaint
 		
 		
 		public function initialize() : void {
+			
+			 _historyLayers  = [];
 			
 			currentLayer = createLayer();
 			currentLayer.alpha = drawingParams.opacity;
@@ -221,6 +225,31 @@ package com.stdva.malibu.vpaint
 				redoArray.splice(0,redoArray.length - HISTORY_SIZE);
 			}			
 			
+		}
+		
+		public function cleanAll() : void
+		{
+			painterWindow.removeChild(  recentLayer );
+			painterWindow.removeChild( currentLayer );
+			painterWindow.removeChild(currentSprite);
+			
+			_historyLayers = [];
+			redoArray=[];
+			
+			recentLayer =  createLayer();
+			currentLayer = createLayer();
+			currentLayer.alpha = drawingParams.opacity;
+			currentLayer.mask = painterWindow.maskArea;
+			
+			currentSprite = new Sprite;
+			currentSprite.alpha = drawingParams.opacity;
+			currentSprite.mask = currentSpriteMask;
+
+			var idx : int = painterWindow.getChildIndex( painterWindow.bottle );
+			painterWindow.addChildAt( recentLayer, idx + 1 );
+			painterWindow.addChildAt( currentLayer, idx + 2 );
+			painterWindow.addChildAt(currentSprite,idx + 3);
+			checkButtons ();
 		}
 		
 		

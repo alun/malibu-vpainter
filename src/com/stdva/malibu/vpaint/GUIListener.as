@@ -75,22 +75,9 @@ package com.stdva.malibu.vpaint
 			painterWindow.bottle.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 			painterWindow.bottle.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
 			painterWindow.addEventListener(MouseEvent.MOUSE_MOVE, onMouseOut);
-
 			
-		
-			
-			/*
-			painterWindow.settings.frame1.addEventListener(MouseEvent.MOUSE_DOWN,onFrame1)
-			painterWindow.settings.frame2.addEventListener(MouseEvent.MOUSE_DOWN,onFrame2)
-			painterWindow.settings.frame3.addEventListener(MouseEvent.MOUSE_DOWN,onFrame3)
-			painterWindow.settings.frame4.addEventListener(MouseEvent.MOUSE_DOWN,onFrame4)
-			painterWindow.settings.frame5.addEventListener(MouseEvent.MOUSE_DOWN,onFrame5)
-			painterWindow.settings.frame6.addEventListener(MouseEvent.MOUSE_DOWN,onFrame6)
-			*/
-			
-			
-			painterWindow.backActive.addEventListener(MouseEvent.MOUSE_DOWN,onGoBack);
-			painterWindow.forwardActive.addEventListener(MouseEvent.MOUSE_DOWN,onGoForward);
+			painterWindow.backButton.addEventListener(MouseEvent.MOUSE_DOWN,onGoBack);
+			painterWindow.forwardButton.addEventListener(MouseEvent.MOUSE_DOWN,onGoForward);
 			
 			painterWindow.settings.fileLoad.addEventListener(MouseEvent.MOUSE_DOWN,onFileLoad);
 			
@@ -113,7 +100,25 @@ package com.stdva.malibu.vpaint
 				}
 				painterWindow.addEventListener("item" + num, layoutPicker);
 			}
+			
+			painterWindow.resetButton.addEventListener(MouseEvent.MOUSE_DOWN,onReset);
+			painterWindow.addToGalery.addEventListener(MouseEvent.MOUSE_DOWN, onSaveToGallery);
+			
+			backActive = false;
+			forwardActive = false;
+			
 		} 
+		
+		private function onSaveToGallery (e : *) : void
+		{
+			var virtualPainter : VirtualPainter = Application.application as VirtualPainter;
+			virtualPainter.showAddToGallery = true;
+		}
+		
+		private function onReset (e : *) : void
+		{
+			history.cleanAll();
+		}
 		
 		private function onPagerBack (e : *) : void
 		{
@@ -159,7 +164,10 @@ package com.stdva.malibu.vpaint
 			painterWindow.settings.fileLoad.visible = false;
 			
 			toolSelecter.reset();
-			
+			for each (var tool : ITool in toolSet.getWithType(ToolTypes.FIGURE_BRUSH ))
+			{
+				toolSelecter.addTool(tool);
+			}
 			toolSelecter.goToFirst();
 			toolSelecter.layout();
 		}
@@ -176,9 +184,7 @@ package com.stdva.malibu.vpaint
 			toolSelecter.layout();
 		}
 		private function onFillings (e : *) : void
-		{
-			var virtualPainter : VirtualPainter = FlexGlobals.topLevelApplication as VirtualPainter;//Application.application as VirtualPainter;
-			virtualPainter.showPicker();
+		{	
 			painterWindow.settings.fileLoad.visible = false;
 			toolSelecter.reset();
 			
@@ -238,22 +244,20 @@ package com.stdva.malibu.vpaint
 		
 		public  function set backActive ( b : Boolean) : void
 		{
-			painterWindow.backActive.visible = b;
-			painterWindow.backPassive.visible = !b;
+			painterWindow.backButton.enabled = b;
 		}
 		public function set forwardActive (b : Boolean) : void
 		{
-			painterWindow.forwardActive.visible = b;
-			painterWindow.forwardPassive.visible = !b;
+			painterWindow.forwardButton.enabled = b;
 		}
 		
 		public function set backPagerActive (b : Boolean) : void
 		{
-			painterWindow.settings.pagerBack.visible = b;
+			painterWindow.settings.pagerBack.enabled = b;
 		}
 		public function set forwardPagerActive (b : Boolean) : void
 		{
-			painterWindow.settings.pagerForward.visible = b;
+			painterWindow.settings.pagerForward.enabled = b;
 		}
 		
 		
