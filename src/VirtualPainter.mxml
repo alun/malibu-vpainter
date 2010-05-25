@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application layout="absolute" minWidth="955" minHeight="600"
-				usePreloader="false"
+				preloader="com.stdva.malibu.vpaint.Preloader"
 	xmlns:swiz="http://swiz.swizframework.org"
 	xmlns:mx="http://www.adobe.com/2006/mxml"> 
 	
@@ -35,6 +35,7 @@
 			import com.stdva.malibu.vpaint.FillTool;
 			import com.stdva.malibu.vpaint.GUIListener;
 			import com.stdva.malibu.vpaint.MaskColorPicker;
+			import com.stdva.malibu.vpaint.Preloader;
 			import com.stdva.malibu.vpaint.ToolSet;
 			import com.stdva.malibu.vpaint.ToolTypes;
 			
