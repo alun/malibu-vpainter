@@ -12,6 +12,9 @@ package com.stdva.malibu.vpaint
 	
 	public class BMPDrawTool implements ITool, IInitializingBean
 	{
+		public static const MAX_BRUSH_SIZE : int= 150;
+		public static const MIN_BRUSH_SIZE : int = 0;
+		
 		public var brushClass : Class;
 		public var brushSample : BitmapData;
 		public var brushSampleSprite : DisplayObject;
@@ -46,7 +49,8 @@ package com.stdva.malibu.vpaint
 			{
 				if (_lastPoint)
 				{	
-					var SOLIDITY : int = radius * drawingParams.brushSize / 100;
+					var size : int = MIN_BRUSH_SIZE + (MAX_BRUSH_SIZE - MIN_BRUSH_SIZE)*drawingParams.brushSize/100;
+					var SOLIDITY : int = radius * size / 100;
 					
 					var length : Number  =  Math.sqrt((_lastPoint.x - point.x) * (_lastPoint.x - point.x)	 + (_lastPoint.y - point.y) * (_lastPoint.y - point.y)	)
 					stepper += length;	
@@ -145,7 +149,7 @@ package com.stdva.malibu.vpaint
 			//bmData.colorTransform(rect,colorTransform);
 			
 			sn.addChild(bm);
-			sn.width = drawingParams.brushSize;
+			sn.width = MIN_BRUSH_SIZE + (MAX_BRUSH_SIZE - MIN_BRUSH_SIZE) * drawingParams.brushSize / 100;
 			sn.scaleY = sn.scaleX;
 			sn.x = point.x - sn.width/2;
 			sn.y = point.y - sn.height/2;

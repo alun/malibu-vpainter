@@ -13,6 +13,9 @@ package com.stdva.malibu.vpaint
 	public class FillTool implements ITool, IInitializingBean
 	{
 		
+		public static const MAX_BRUSH_SIZE : int= 150;
+		public static const MIN_BRUSH_SIZE : int = 0;
+		
 		public var _type : String = "";
 		public var brushSampleSprite : DisplayObject;
 		public var brushSample : BitmapData;
@@ -71,12 +74,12 @@ package com.stdva.malibu.vpaint
 			
 		}
 		
-		private var hasPixelsToFill : Boolean;
-		private var filledPixels : Array = [];
-		private var visitedPixels : Array = [];
-		private var targetColor : int;
-		private var epsilon : int = 1000;
-		private var iterationNumber : int = 0;
+	//	private var hasPixelsToFill : Boolean;
+	//	private var filledPixels : Array = [];
+	//	private var visitedPixels : Array = [];
+		//private var targetColor : int;
+		//private var epsilon : int = 1000;
+	//	private var iterationNumber : int = 0;
 		private var width : int;
 		private var height : int;
 		
@@ -86,10 +89,13 @@ package com.stdva.malibu.vpaint
 			
 			var colorTransform : ColorTransform = new ColorTransform();
 			colorTransform.redOffset = -1;
-			var rect : Rectangle = new Rectangle(0,0,width,height);
 			
 			width = history.recentLayer.width;
 			height = history.recentLayer.height;
+
+			var rect : Rectangle = new Rectangle(0,0,width,height);
+			
+			
 			
 			p.x = int(p.x);
 			p.y = int (p.y);
@@ -133,10 +139,7 @@ package com.stdva.malibu.vpaint
 			var lilBitmapSample : BitmapData = new BitmapData(sample.width,sample.height,true,0x000000);
 			lilBitmapSample.draw(sample);
 			
-			
-			
-			
-			s.graphics.beginBitmapFill(lilBitmapSample,sample.transform.matrix);
+			s.graphics.beginBitmapFill(brushSample,sample.transform.matrix);
 			s.graphics.drawRect(0,0,width,height);
 			s.cacheAsBitmap = true;
 			bm.cacheAsBitmap = true;

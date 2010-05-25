@@ -25,7 +25,11 @@ package com.stdva.malibu.vpaint
 		[Bindable(event=CHANGED)]
 		public function get value () : int
 		{
-			return (todder.x - scale.x) * 100 / scale.width;
+			var value : Number = (todder.x - scale.x) * 100 / scale.width+ 5;
+			if (value > 100)
+				value = 100;
+			//return (todder.x - scale.x) * 100 / scale.width;
+			return value;
 		}
 		
 		public function set value (v : int) : void

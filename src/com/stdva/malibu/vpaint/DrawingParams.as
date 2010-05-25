@@ -9,11 +9,6 @@ package com.stdva.malibu.vpaint
 	public class DrawingParams extends EventDispatcher implements IInitializingBean
 	{
 		
-		public static const MAX_BRUSH_SIZE : int= 150;
-		public static const MIN_BRUSH_SIZE : int = 3;
-		
-		
-		
 		public var color : uint;
 		//public var opacity : Number;
 		//public var brushSize : Number;
@@ -48,9 +43,11 @@ package com.stdva.malibu.vpaint
 			//opacity = 0.2;
 		} 
 		
+		
 		public function get brushSize () : int
 		{
-			return MIN_BRUSH_SIZE + (MAX_BRUSH_SIZE-MIN_BRUSH_SIZE)*widthSlider.value/100;
+			return widthSlider.value;
+			//return MIN_BRUSH_SIZE + (MAX_BRUSH_SIZE-MIN_BRUSH_SIZE)*widthSlider.value/100;
 		}
 		
 		[Bindable(event="Changed")]
@@ -58,11 +55,6 @@ package com.stdva.malibu.vpaint
 		{
 			return alphaSlider.value/100;
 		}
-		
-		
-		
-		
-		
 		
 	}
 	
