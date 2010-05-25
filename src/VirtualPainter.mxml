@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application layout="absolute" minWidth="955" minHeight="600" 
-				preloader="com.stdva.malibu.vpaint.Preloader" initialize="init()"
+				preloader="com.stdva.malibu.vpaint.Preloader" initialize="init()" backgroundAlpha="0"
 	xmlns:swiz="http://swiz.swizframework.org"
 	xmlns:mx="http://www.adobe.com/2006/mxml"> 
 	
@@ -194,7 +194,7 @@
 					if( menu_items.indexOf( child.name ) == -1 ) continue;
 					
 					for each( var label : String in ["selected_label","normal_label"] ) {
-						Fonts.apply( child[label], "HeliosC" );
+						Fonts.apply( child[label], "HeliosCondC-Bold" );
 						child[label].text = child[label].text;
 						
 					}
