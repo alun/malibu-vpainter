@@ -97,8 +97,8 @@ package com.stdva.malibu.vpaint
 			var y:Number = 0;
 			if (stageHeight && stageWidth)
 			{
-				x = stageWidth/2 - width/2;
-				y = stageHeight/2 - height/2; 
+				x = stageWidth/2 - 200/2;
+				y = stageHeight/2 - 56/2; 
 			}
 			this.x = x;
 			this.y = y;
@@ -108,7 +108,7 @@ package com.stdva.malibu.vpaint
 		public function set applicationInitProgress(value:Number):void
 		{
 			realProgress = PROGRESS_WHEN_LOADED + value * (1 - PROGRESS_WHEN_LOADED);
-			trace("aIP realProgress: " + realProgress);
+//			trace("aIP realProgress: " + realProgress);
 		}
 		
 		protected function get progress():Number
@@ -123,7 +123,7 @@ package com.stdva.malibu.vpaint
 			
 			var percent:Number = Math.round(_progress * 100);
 			_loader.gotoAndStop( percent );
-			trace("progress: " + percent.toString()); 
+//			trace("progress: " + percent.toString()); 
 		}
 		
 		// event handlers
@@ -134,7 +134,7 @@ package com.stdva.malibu.vpaint
 		protected function progressHandler(event:ProgressEvent):void
 		{
 			realProgress = event.bytesLoaded/event.bytesTotal * (PROGRESS_WHEN_LOADED);
-			trace("ph  realProgress: " + realProgress);
+//			trace("ph  realProgress: " + realProgress);
 			// TODO: логика нашего прелоадера
 		}
 		

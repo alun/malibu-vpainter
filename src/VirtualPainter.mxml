@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application layout="absolute" minWidth="955" minHeight="600"
-				preloader="com.stdva.malibu.vpaint.Preloader"
+<mx:Application layout="absolute" minWidth="955" minHeight="600" 
+				preloader="com.stdva.malibu.vpaint.Preloader" initialize="init()"
 	xmlns:swiz="http://swiz.swizframework.org"
 	xmlns:mx="http://www.adobe.com/2006/mxml"> 
 	
@@ -28,6 +28,7 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import com.stdva.malibu.Fonts;
 			import com.stdva.malibu.PainterWindow;
 			import com.stdva.malibu.vpaint.BDDrawTool;
 			import com.stdva.malibu.vpaint.BMPDrawTool;
@@ -40,6 +41,7 @@
 			import com.stdva.malibu.vpaint.ToolTypes;
 			
 			import mx.controls.ColorPicker;
+			import mx.controls.Text;
 			import mx.events.ColorPickerEvent;
 			import mx.events.FlexEvent;
 			
@@ -88,7 +90,7 @@
 					for( i = 0; i < toolsMap[ group ].length; ++i ) {
 						if( toolsMap[ group ][i] != null ) {
 							
-							trace( group, ' ', i, ' ', toolsMap[ group ][i] );
+//							trace( group, ' ', i, ' ', toolsMap[ group ][i] );
 							
 							if (group == "b" )
 							{
@@ -172,6 +174,24 @@
 				_painterWindow.backActive.visible = false;
 				_painterWindow.forwardActive.visible = false;
 				
+				
+				setUpFonts();
+			}
+			
+			private function setUpFonts() : void {
+				for( var i : int = 0; i < _painterWindow.numChildren; ++i ) {
+					var menu_items : Array = ["brushes", "figure_brushes", "ready_pictures", "fill", "fonts", "upload_picture"];
+					var child : DisplayObject = _painterWindow.getChildAt( i );
+					
+					if( menu_items.indexOf( child.name ) == -1 ) continue;
+					
+					for each( var label : String in ["selected_label","normal_label"] ) {
+						Fonts.apply( child[label], "HeliosC" );
+						child[label].text = child[label].text;
+						
+					}
+				}
+				
 			}
 			
 			public function layoutPicker () : void
@@ -195,6 +215,7 @@
 			
 			public function init() : void
 			{
+				Fonts.showEmbeddedFonts();
 			}
 
 		]]>
