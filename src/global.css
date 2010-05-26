@@ -15,6 +15,12 @@
 	fontWeight: normal;
 	fontFamily: HeliosC;
 }
+@font-face 
+{
+	src: url("arial.ttf");
+	fontWeight: normal;
+	fontFamily: Arial;
+}
 
 @font-face 
 {

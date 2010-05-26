@@ -23,12 +23,12 @@ package com.stdva.malibu.vpaint
 			checked = !checked;
 		}
 		
-		private function set checked (b : Boolean) : void
+		public function set checked (b : Boolean) : void
 		{
 			check.visible = b;
 		}
 		
-		private function get checked () : Boolean
+		public function get checked () : Boolean
 		{
 			return check.visible;
 		}

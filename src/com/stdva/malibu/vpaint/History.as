@@ -10,10 +10,14 @@ package com.stdva.malibu.vpaint
 	import flash.display.Graphics;
 	import flash.display.Shape;
 	import flash.display.Sprite;
+	import flash.geom.Matrix;
+	import flash.geom.Point;
 	
 	import mx.states.RemoveChild;
 	
 	import org.swizframework.factory.IInitializingBean;
+	
+	import spark.components.supportClasses.DisplayLayer;
 
 	public class History implements IInitializingBean
 	{
@@ -112,6 +116,33 @@ package com.stdva.malibu.vpaint
 			
 			return new Bitmap(bitmapData);
 		} 
+		
+		public function get currentBitmap() : BitmapData {
+			var bottle : DisplayObject = painterWindow.bottle;
+			var logo : DisplayObject = painterWindow.malibulogo;
+			
+			var data : BitmapData = new BitmapData( bottle.width, bottle.height, false, 0xFFFFFFF );
+			var m : Matrix; var p : Point;
+			
+			data.draw( bottle );
+			
+			m = new Matrix();
+			p = new Point( bottle.x, bottle.y );
+			m.translate( - p.x - 1, - p.y - 1 );
+			
+			data.draw( recentLayer, m );
+			data.draw( currentLayer, m );
+			data.draw( currentSprite, m );
+			
+			m = new Matrix();
+			p = new Point( logo.x, logo.y );
+			var p2 : Point = new Point( bottle.x, bottle.y );
+			p = p.subtract( p2 );
+			m.translate( p.x, p.y );
+			
+			data.draw( logo, m );
+			return data;
+		}
 		
 		/**
 		 * Начинает новый слой истории 

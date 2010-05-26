@@ -95,11 +95,6 @@ package com.stdva.malibu.vpaint
 		{
 			var x:Number = 0;
 			var y:Number = 0;
-			if (stageHeight && stageWidth)
-			{
-				x = stageWidth/2 - 200/2;
-				y = stageHeight/2 - 56/2; 
-			}
 			this.x = x;
 			this.y = y;
 		}
