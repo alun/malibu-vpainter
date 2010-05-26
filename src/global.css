@@ -16,3 +16,16 @@
 	fontFamily: HeliosC;
 }
 
+@font-face 
+{
+	src: url("HeliosCondBlackC.otf");
+	fontWeight: normal;
+	fontFamily: HeliosCondBlackC;
+}
+
+@font-face 
+{
+	src: url("HeliosCondC-Bold.otf");
+	fontWeight: normal;
+	fontFamily: HeliosCondC-Bold;
+}
