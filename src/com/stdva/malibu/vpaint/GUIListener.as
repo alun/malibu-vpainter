@@ -95,8 +95,8 @@ package com.stdva.malibu.vpaint
 			
 			for each( var num : int in [0,1,2,3,4,5] ) {
 				function layoutPicker(v:*) : void {
-					var virtualPainter : VirtualPainter = Application.application as VirtualPainter;
-					virtualPainter.layoutPicker();
+//					var virtualPainter : VirtualPainter = Application.application as VirtualPainter;
+//					virtualPainter.layoutPicker();
 				}
 				painterWindow.addEventListener("item" + num, layoutPicker);
 			}
@@ -132,16 +132,17 @@ package com.stdva.malibu.vpaint
 		
 		private function onHideSettings (e : *) : void
 		{
-			var virtualPainter : VirtualPainter = Application.application as VirtualPainter;
-			virtualPainter.hidePicker();
+//			var virtualPainter : VirtualPainter = Application.application as VirtualPainter;
+//			virtualPainter.hidePicker();
 		}
 		
 		public function onBrushes (e : *) : void
 		{
 			painterWindow.settings.fileLoad.visible = false;
+			showColorPicker = true;
 			
-			var virtualPainter : VirtualPainter = FlexGlobals.topLevelApplication as VirtualPainter;//Application.application as VirtualPainter;
-			virtualPainter.showPicker();
+//			var virtualPainter : VirtualPainter = FlexGlobals.topLevelApplication as VirtualPainter;//Application.application as VirtualPainter;
+//			virtualPainter.showPicker();
 			
 			toolSelecter.reset();
 			
@@ -157,9 +158,9 @@ package com.stdva.malibu.vpaint
 		private function onFigureBrushes (e : *) : void
 		{
 			painterWindow.settings.fileLoad.visible = false;
-			
-			var virtualPainter : VirtualPainter = Application.application as VirtualPainter;
-			virtualPainter.showPicker();
+			showColorPicker = true;
+//			var virtualPainter : VirtualPainter = Application.application as VirtualPainter;
+//			virtualPainter.showPicker();
 			
 			painterWindow.settings.fileLoad.visible = false;
 			
@@ -173,7 +174,9 @@ package com.stdva.malibu.vpaint
 		}
 		private function onReadyPictures(e : *) : void
 		{
+			
 			painterWindow.settings.fileLoad.visible = false;
+			showColorPicker = false;
 			
 			toolSelecter.reset();
 			for each (var tool : ITool in toolSet.getWithType(ToolTypes.READY_BITMAP))
@@ -186,6 +189,7 @@ package com.stdva.malibu.vpaint
 		private function onFillings (e : *) : void
 		{	
 			painterWindow.settings.fileLoad.visible = false;
+			showColorPicker = false;
 			toolSelecter.reset();
 			
 			for each (var tool : ITool in toolSet.getWithType(ToolTypes.FILL))
@@ -198,9 +202,9 @@ package com.stdva.malibu.vpaint
 		}
 		private function onFonts(e : *) : void
 		{
-			var virtualPainter : VirtualPainter = FlexGlobals.topLevelApplication as VirtualPainter;//Application.application as VirtualPainter;
-			virtualPainter.showPicker();
-
+//			var virtualPainter : VirtualPainter = FlexGlobals.topLevelApplication as VirtualPainter;//Application.application as VirtualPainter;
+//			virtualPainter.showPicker();
+			showColorPicker = true;
 			toolSelecter.reset();
 			for each (var tool : ITool in toolSet.getWithType(ToolTypes.FONT))
 			{
@@ -212,6 +216,7 @@ package com.stdva.malibu.vpaint
 		public function onUploadPictures (e : *) :void
 		{
 			painterWindow.settings.fileLoad.visible = true;
+			showColorPicker = false;
 			
 			toolSelecter.reset();
 			for each (var tool : ITool in toolSet.getWithType(ToolTypes.LOADED_BITMAP))
@@ -258,6 +263,14 @@ package com.stdva.malibu.vpaint
 		public function set forwardPagerActive (b : Boolean) : void
 		{
 			painterWindow.settings.pagerForward.enabled = b;
+		}
+		
+		private function set showColorPicker (b : Boolean) : void
+		{
+			painterWindow.settings.colorLabel.visible = b;
+			var virtualPainter : VirtualPainter = FlexGlobals.topLevelApplication as VirtualPainter;//Application.application as VirtualPainter;
+			if (virtualPainter.colorPicker)
+				virtualPainter.colorPicker.visible = b;
 		}
 		
 		

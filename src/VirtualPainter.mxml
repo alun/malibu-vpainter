@@ -38,6 +38,7 @@
 			import com.stdva.malibu.vpaint.FillTool;
 			import com.stdva.malibu.vpaint.GUIListener;
 			import com.stdva.malibu.vpaint.MaskColorPicker;
+			import com.stdva.malibu.vpaint.MyColorPickerController;
 			import com.stdva.malibu.vpaint.Preloader;
 			import com.stdva.malibu.vpaint.ToolSet;
 			import com.stdva.malibu.vpaint.ToolTypes;
@@ -64,7 +65,7 @@
 			[Autowire]
 			public var toolSet : ToolSet;
 			
-			private var colorPicker : ColorPicker;
+			public var colorPicker : MyColorPickerController;
 			
 			[Autowire]
 			public var guiListener : GUIListener;
@@ -159,6 +160,9 @@
 				
 				rawChildren.addChild( _painterWindow );
 				
+			
+/////////////////////////////////////////////////////////				
+				/*
 				colorPicker = new MaskColorPicker();
 				_painterWindow.settings.picker.visible = false;
 				
@@ -169,7 +173,13 @@
 				
 				//_painterWindow.settings.addChild(colorPicker);
 				//rawChildren.
-				addChild(colorPicker);
+				addChild(colorPicker);*/
+//////////////////////////////////////////////////////////////////
+				colorPicker = new MyColorPickerController();
+				colorPicker.x = _painterWindow.settings.pickerPlace.x;
+				colorPicker.y = _painterWindow.settings.pickerPlace.y;
+				 _painterWindow.settings.addChild(colorPicker);	
+				
 				
 				/*
 				var bd : BitmapData;
@@ -179,7 +189,7 @@
 				//_painterWindow.addChild(colorPicker);
 				drawingParams.color = colorPicker.selectedColor;
 				
-				layoutPicker();
+				//layoutPicker();
 				
 				colorPicker.addEventListener(ColorPickerEvent.CHANGE,function (e:*) : void 
 				{
@@ -205,7 +215,7 @@
 				}
 				
 			}
-			
+			/*
 			public function layoutPicker () : void
 			{
 				var settingsPoint : Point = new Point (_painterWindow.settings.picker.x, _painterWindow.settings.picker.y );
@@ -227,7 +237,7 @@
 				if (_painterWindow)
 					_painterWindow.settings.colorLabel.visible = true;
 			}
-			
+			*/
 			public function init() : void
 			{
 				Fonts.showEmbeddedFonts();

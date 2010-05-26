@@ -5,6 +5,7 @@ package com.stdva.malibu.vpaint
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.geom.ColorTransform;
+	import flash.geom.Matrix;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	
@@ -83,16 +84,18 @@ package com.stdva.malibu.vpaint
 		
 		public function initialize():void
 		{
-		if (brushSampleSprite)
-		{
-			brushSampleSprite.scaleX = brushSampleSprite.scaleY = 1;
-			brushSample = new BitmapData(brushSampleSprite.width, brushSampleSprite.height,true,0x000000)
-			brushSample.draw(brushSampleSprite);					
-		}	
+			
+			if (brushSampleSprite)
+			{
+				brushSampleSprite.scaleX = brushSampleSprite.scaleY = 1;
+				brushSample = new BitmapData(brushSampleSprite.width, brushSampleSprite.height,true,0x000000)
+				brushSample.draw(brushSampleSprite,new Matrix(),new ColorTransform(),"normal",new Rectangle(0,0,brushSampleSprite.width, brushSampleSprite.height),true);					
+			
+			}	
 		
-		if (!brushSample)
-			brushSample =  new brushClass(100,100)
-		radius = get100Radius ();
+			if (!brushSample)
+				brushSample =  new brushClass(100,100)
+			radius = get100Radius ();
 		
 		}
 		public function beginDraw (point : Point) : void
@@ -110,50 +113,14 @@ package com.stdva.malibu.vpaint
 		
 		private function drawInPoint (point : Point) : void
 		{
-			/*
-			brushSample = new BitmapData(brushSampleSprite.width, brushSampleSprite.height,true,0x000000)
-			brushSample.draw(brushSampleSprite);
-			*/
-		var sn : Sprite = new Sprite;
-			
-		//	var bmSprite : DisplayObject = brushSampleSprite;
-		//	bmSprite.scaleX = bmSprite.scaleY = 1;
-			
-			//var bmData : BitmapData = new BitmapData (brushSample.width, brushSample.height, true, 0x00000000);
-			//var colorTransform : ColorTransform = new ColorTransform(1, 1, 1, 1, 0, 0, 0, 1)
-			
-			//bmData.draw(bmSprite,null);
-			
+			var sn : Sprite = new Sprite;
 			var bm : Bitmap = new Bitmap(brushSample )
-			
-		//	var rect:Rectangle = new Rectangle(0, 0, bmData.width, bmData.height);
-			
-		//	colorTransform.color =drawingParams.color;		
-		//	bmData.colorTransform(rect,colorTransform);
 			sn.addChild(bm);
-			/*
-			if (brushSample)
-			{
-				var
-			}
-			else
-			{
-				var bmData : BitmapData = new brushClass(100,100)
-			}
-			*/
-			
-			//var bm : Bitmap = new Bitmap(brushSample )
-			//var rect:Rectangle = new Rectangle(0, 0, bmData.width, bmData.height);
-			//var colorTransform : ColorTransform = new ColorTransform(1, 1, 1, 1, 0, 0, 0, 1)
-			//colorTransform.color =drawingParams.color;		
-			//bmData.colorTransform(rect,colorTransform);
-			
 			sn.addChild(bm);
 			sn.width = MIN_BRUSH_SIZE + (MAX_BRUSH_SIZE - MIN_BRUSH_SIZE) * drawingParams.brushSize / 100;
 			sn.scaleY = sn.scaleX;
 			sn.x = point.x - sn.width/2;
 			sn.y = point.y - sn.height/2;
-			
 			history.currentLayer.bitmapData.draw(sn, sn.transform.matrix);
 			history.changed = true;
 		}

@@ -100,8 +100,10 @@ package com.stdva.malibu.vpaint
 			sn.scaleY = sn.scaleX;
 			sn.x = point.x - sn.width/2;
 			sn.y = point.y - sn.height/2;
+			var width : int = history.currentLayer.width;
+			var height : int = history.currentLayer.height
 			
-			history.currentLayer.bitmapData.draw(sn, sn.transform.matrix);
+			history.currentLayer.bitmapData.draw(sn, sn.transform.matrix,new ColorTransform(),"normal", new Rectangle(0,0,width,height),true);
 			history.changed = true;
 		}
 		

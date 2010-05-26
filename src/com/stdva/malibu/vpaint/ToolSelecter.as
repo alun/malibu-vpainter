@@ -73,7 +73,19 @@ package com.stdva.malibu.vpaint
 				//painterWindow.settings.addChildAt(icon,0);
 				painterWindow.settings.addChild(icon);
 				painterWindow.settings.addChild(painterWindow.settings["frame"+frameNumber]);
-					
+			
+				if (icon.width > frameSize)
+				{
+					icon.width = frameSize;
+					icon.scaleY = icon.scaleX;
+				}
+				if (icon.height > frameSize)
+				{
+					icon.height = frameSize;
+					icon.scaleX = icon.scaleY;
+				}
+				
+				/*
 				if (icon.width > icon.height)
 				{
 					icon.width = frameSize;
@@ -84,7 +96,7 @@ package com.stdva.malibu.vpaint
 					icon.height = frameSize;
 					icon.scaleX = icon.scaleY;
 				}
-				
+				*/
 				icon.x = painterWindow.settings["frame"+frameNumber].x + (frameSize - icon.width)/2
 				icon.y = painterWindow.settings["frame" + frameNumber].y + (frameSize - icon.height)/2
 			
