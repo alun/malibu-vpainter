@@ -88,7 +88,7 @@ package com.stdva.malibu.vpaint
 			bmData.draw(bmSprite,null);
 			
 			var bm : Bitmap = new Bitmap(bmData )
-				
+			bm.smoothing = true;	
 			var rect:Rectangle = new Rectangle(0, 0, bmData.width, bmData.height);
 			
 			colorTransform.color =drawingParams.color;		

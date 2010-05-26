@@ -115,6 +115,7 @@ package com.stdva.malibu.vpaint
 		{
 			var sn : Sprite = new Sprite;
 			var bm : Bitmap = new Bitmap(brushSample )
+			bm.smoothing = true;
 			sn.addChild(bm);
 			sn.addChild(bm);
 			sn.width = MIN_BRUSH_SIZE + (MAX_BRUSH_SIZE - MIN_BRUSH_SIZE) * drawingParams.brushSize / 100;

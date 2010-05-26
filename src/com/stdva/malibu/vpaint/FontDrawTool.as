@@ -154,6 +154,7 @@ package com.stdva.malibu.vpaint
 			var bmd : BitmapData = new BitmapData(s.width,s.height);
 			bmd.draw(s);
 			var bm : Bitmap = new Bitmap(bmd);
+			bm.smoothing = true;
 			
 			return bm;
 		}

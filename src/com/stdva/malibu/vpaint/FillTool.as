@@ -141,7 +141,7 @@ package com.stdva.malibu.vpaint
 			var lilBitmapSample : BitmapData = new BitmapData(sample.width,sample.height,true,0x000000);
 			lilBitmapSample.draw(sample);
 			
-			s.graphics.beginBitmapFill(brushSample,sample.transform.matrix);
+			s.graphics.beginBitmapFill(brushSample,sample.transform.matrix,true,true);
 			s.graphics.drawRect(0,0,width,height);
 			s.cacheAsBitmap = true;
 			bm.cacheAsBitmap = true;
