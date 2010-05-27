@@ -74,6 +74,9 @@ package com.stdva.malibu.vpaint
 			
 			painterWindow.bottle.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 			painterWindow.bottle.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+			painterWindow.malibulogo.addEventListener(MouseEvent.MOUSE_MOVE,onMouseMove);
+			painterWindow.malibulogo.addEventListener(MouseEvent.MOUSE_DOWN,onMouseDown);
+			
 			painterWindow.addEventListener(MouseEvent.MOUSE_MOVE, onMouseOut);
 			
 			painterWindow.backButton.addEventListener(MouseEvent.MOUSE_DOWN,onGoBack);
