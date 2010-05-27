@@ -114,6 +114,7 @@ package com.stdva.malibu.vpaint
 			var source : DisplayObject = painterWindow.bottle;
 			var bitmapData : BitmapData = new BitmapData(source.width, source.height, true, 0);
 			
+			
 			return new Bitmap(bitmapData);
 		} 
 		

@@ -34,6 +34,7 @@
 			import com.stdva.malibu.PainterWindow;
 			import com.stdva.malibu.vpaint.BDDrawTool;
 			import com.stdva.malibu.vpaint.BMPDrawTool;
+			import com.stdva.malibu.vpaint.ColorFillTool;
 			import com.stdva.malibu.vpaint.DrawingParams;
 			import com.stdva.malibu.vpaint.FillTool;
 			import com.stdva.malibu.vpaint.GUIListener;
@@ -128,6 +129,16 @@
 								toolSet.tools.push( fillTool  );
 								Swiz.autowire(fillTool);
 							}
+							else
+								if (group == "cf")
+								{
+									var fillTool2 : ColorFillTool = new ColorFillTool();
+									fillTool2.type = ToolTypes.COLOR_FILL;
+									fillTool2.brushSampleSprite = toolsMap[ group ][i];
+									fillTool2.initialize();
+									toolSet.tools.push( fillTool2  );
+									Swiz.autowire(fillTool2);
+								}
 							else
 							if (group == "fb" )
 							{

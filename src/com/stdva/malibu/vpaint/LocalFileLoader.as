@@ -83,6 +83,7 @@ package com.stdva.malibu.vpaint
 			
 			var tool : BMPDrawTool = new BMPDrawTool();
 			tool.brushSample = bitmapData;
+			tool.MAX_BRUSH_SIZE = bitmapData.width*1.5;
 			tool.initialize();
 			tool.type=ToolTypes.LOADED_BITMAP;
 			Swiz.autowire(tool);

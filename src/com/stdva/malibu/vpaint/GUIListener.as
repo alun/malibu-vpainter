@@ -97,7 +97,8 @@ package com.stdva.malibu.vpaint
 			painterWindow.settings.pagerBack.addEventListener(MouseEvent.MOUSE_DOWN,onPagerBack);
 			
 			for each( var num : int in [0,1,2,3,4,5] ) {
-				function layoutPicker(v:*) : void {
+				function layoutPicker(v:*) : void 
+				{
 //					var virtualPainter : VirtualPainter = Application.application as VirtualPainter;
 //					virtualPainter.layoutPicker();
 				}
@@ -192,8 +193,13 @@ package com.stdva.malibu.vpaint
 		private function onFillings (e : *) : void
 		{	
 			painterWindow.settings.fileLoad.visible = false;
-			showColorPicker = false;
+			showColorPicker = true;
 			toolSelecter.reset();
+			
+			for each (var tool : ITool in toolSet.getWithType(ToolTypes.COLOR_FILL))
+			{
+				toolSelecter.addTool(tool);
+			}
 			
 			for each (var tool : ITool in toolSet.getWithType(ToolTypes.FILL))
 			{
@@ -268,7 +274,7 @@ package com.stdva.malibu.vpaint
 			painterWindow.settings.pagerForward.enabled = b;
 		}
 		
-		private function set showColorPicker (b : Boolean) : void
+		public function set showColorPicker (b : Boolean) : void
 		{
 			painterWindow.settings.colorLabel.visible = b;
 			var virtualPainter : VirtualPainter = FlexGlobals.topLevelApplication as VirtualPainter;//Application.application as VirtualPainter;

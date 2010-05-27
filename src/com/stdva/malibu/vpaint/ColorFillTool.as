@@ -10,7 +10,7 @@ package com.stdva.malibu.vpaint
 	
 	import org.swizframework.factory.IInitializingBean;
 	
-	public class FillTool implements ITool, IInitializingBean
+	public class ColorFillTool implements ITool, IInitializingBean
 	{
 		
 		public static const MAX_BRUSH_SIZE : int= 150;
@@ -94,7 +94,7 @@ package com.stdva.malibu.vpaint
 			
 			width = history.recentLayer.width;
 			height = history.recentLayer.height;
-
+			
 			var rect : Rectangle = new Rectangle(0,0,width,height);
 			
 			
@@ -105,7 +105,7 @@ package com.stdva.malibu.vpaint
 			var bmd : BitmapData = new BitmapData(width, height,false,0xFF0000);
 			history.recentLayer.bitmapData.colorTransform(rect,colorTransform);
 			bmd.draw(history.recentLayer);
-    		bmd.colorTransform(rect,colorTransform);
+			bmd.colorTransform(rect,colorTransform);
 			
 			bmd.floodFill(p.x, p.y, 0x00FF0000);
 			
@@ -115,8 +115,8 @@ package com.stdva.malibu.vpaint
 			var maskColor:uint = 0xFFFFFFFF;
 			var bmd2 : BitmapData = new BitmapData(width,height,true,0x000000);
 			bmd2.threshold(bmd, rect, pt, "!=", threshold, color, maskColor, true);
-
-    		//bmd.threshold(bmd,rect,new Point(0,0), "==",0x00FF0000,
+			
+			//bmd.threshold(bmd,rect,new Point(0,0), "==",0x00FF0000,
 			
 			//function threshold(sourceBitmapData:BitmapData, sourceRect:Rectangle, destPoint:Point, operation:String, threshold:uint, color:uint = 0, mask:uint = 0xFFFFFFFF, copySource:Boolean = false):uint
 			
@@ -127,21 +127,22 @@ package com.stdva.malibu.vpaint
 			*/
 			
 			var bm : Bitmap = new Bitmap(bmd2)
-				
+			
 			var s : Sprite = new Sprite;
 			
 			//делаем сэмплы для раскрашивания
 			var sample : Sprite = new Sprite
-			sample.addChild(new Bitmap(brushSample));
+			var sBitmapData = new BitmapData(1,1,false,drawingParams.color);
+			sample.addChild(new Bitmap(sBitmapData));
 			
-			sample.width = drawingParams.brushSize;
+			sample.width = 1;
+			sample.height = 1;
 			
-			sample.scaleY = sample.scaleX;
 			
-			var lilBitmapSample : BitmapData = new BitmapData(sample.width,sample.height,true,0x000000);
-			lilBitmapSample.draw(sample);
+			var lilBitmapSample : BitmapData = new BitmapData(1,1,false,drawingParams.color);
+		//	lilBitmapSample.draw(sample);
 			
-			s.graphics.beginBitmapFill(brushSample,sample.transform.matrix,true,true);
+			s.graphics.beginBitmapFill(lilBitmapSample,sample.transform.matrix,true,true);
 			s.graphics.drawRect(0,0,width,height);
 			s.cacheAsBitmap = true;
 			bm.cacheAsBitmap = true;
@@ -150,7 +151,7 @@ package com.stdva.malibu.vpaint
 			s2.addChild(s);
 			s2.addChild(bm);		
 			s.mask = bm;
-				
+			
 			history.currentLayer.bitmapData.draw(s2);
 			history.changed = true;
 			history.checkout();
@@ -158,7 +159,7 @@ package com.stdva.malibu.vpaint
 		
 		public function get needColorPicker () : Boolean
 		{
-			return false;
+			return true;
 		}
 	
 				

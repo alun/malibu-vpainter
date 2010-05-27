@@ -40,5 +40,9 @@ package com.stdva.malibu.vpaint
 		public function initialize():void
 		{
 		}
+		public function get needColorPicker () : Boolean
+		{
+			return false;
+		}
 	}
 }

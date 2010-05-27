@@ -9,5 +9,6 @@ package com.stdva.malibu.vpaint
 		public static const FONT : String = "Font";
 		public static const LOADED_BITMAP : String = "Loaded bitmap";
 		public static const FILL : String = "Fill";
+		public static const COLOR_FILL : String = "Color fill";
 	}
 }

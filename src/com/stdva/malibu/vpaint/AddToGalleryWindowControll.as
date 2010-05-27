@@ -54,6 +54,8 @@ package com.stdva.malibu.vpaint
 		private var address : TextField;
 		private var comment : TextField;
 		
+		private var alert : TextField;
+		
 		[Autowire]
 		public var history : History;
 	
@@ -72,6 +74,21 @@ package com.stdva.malibu.vpaint
 			address = addTextField(_addToGalleryWindow.addressRect);
 			comment = addTextField(_addToGalleryWindow.commentRect);
 			
+			alert = new TextField();
+			alert.selectable = false;
+			alert.wordWrap = true;
+			Fonts.apply( alert, "Arial" );
+			_addToGalleryWindow.addChild(alert);
+			var r : DisplayObject = _addToGalleryWindow.alertRect
+			alert.x = r.x;
+			alert.y = r.y;
+			alert.width = r.width;
+			alert.height = r.height;
+			alert.text = ""
+			alert.multiline = true;
+			
+			
+			
 			added = false;
 		}
 		public function addTextField (r : DisplayObject) : TextField
@@ -82,6 +99,7 @@ package com.stdva.malibu.vpaint
 			t.wordWrap = true;
 			Fonts.apply( t, "Arial" );
 			fit (t, r);
+			t.multiline = true;
 			_addToGalleryWindow.addChild(t);
 			
 			return t;
@@ -132,6 +150,7 @@ package com.stdva.malibu.vpaint
 				phone,
 				address,
 				comment,
+				alert,
 				w.check,
 				w.checkFrame
 			]
@@ -147,7 +166,24 @@ package com.stdva.malibu.vpaint
 			}
 		}
 		
+		private function checkFields () : Boolean
+		{
+			 if (name.text.length &&  secondName.text.length &&  age.text.length && email.text.length &&  phone.text.length && address.text.length &&  comment.text.length) 
+			 {
+			 	alert.text = "";
+			 	return true;
+			 }
+			 else
+			 {
+			 	alert.text = 'Пожалуйста, заполните все обязательные поля!';
+			 	return false;
+			 }
+		}
+		
 		private function onSave(e : *) : void {
+			
+			if (!checkFields())
+				return;
 			
 			var encoder : JPEGEncoder = new JPEGEncoder(75);
 			var bytes : ByteArray = encoder.encode( history.currentBitmap );

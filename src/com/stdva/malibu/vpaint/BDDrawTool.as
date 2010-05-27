@@ -161,6 +161,11 @@ package com.stdva.malibu.vpaint
 		{
 			_type = value;
 		}
+		
+		public function get needColorPicker () : Boolean
+		{
+			return true;
+		}
 			
 		
 	}

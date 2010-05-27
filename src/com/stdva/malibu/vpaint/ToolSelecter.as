@@ -114,9 +114,10 @@ package com.stdva.malibu.vpaint
 					
 					if (e)
 					{
-					e.target.alpha = 1;
-					var selectedFrame : int = e.target.name.charAt(e.target.name.length - 1);
-					drawingParams.currentTool = layoutedTools[selectedFrame - 1]
+						e.target.alpha = 1;
+						var selectedFrame : int = e.target.name.charAt(e.target.name.length - 1);
+						drawingParams.currentTool = layoutedTools[selectedFrame - 1]
+						guiListener.showColorPicker = drawingParams.currentTool.needColorPicker; 
 					}
 					
 				};

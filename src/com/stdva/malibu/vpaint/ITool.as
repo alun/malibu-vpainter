@@ -13,5 +13,6 @@ package com.stdva.malibu.vpaint
 		
 		function get type () : String;
 		function set type (v : String) : void;
+		function get needColorPicker () : Boolean;
 	}
 }

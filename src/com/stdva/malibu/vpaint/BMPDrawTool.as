@@ -13,7 +13,7 @@ package com.stdva.malibu.vpaint
 	
 	public class BMPDrawTool implements ITool, IInitializingBean
 	{
-		public static const MAX_BRUSH_SIZE : int= 150;
+		public var MAX_BRUSH_SIZE : int= 150;
 		public static const MIN_BRUSH_SIZE : int = 0;
 		
 		public var brushClass : Class;
@@ -167,6 +167,11 @@ package com.stdva.malibu.vpaint
 		public function set type (value : String) : void
 		{
 			_type = value;
+		}
+		
+		public function get needColorPicker () : Boolean
+		{
+			return false;
 		}
 		
 
