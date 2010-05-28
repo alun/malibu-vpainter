@@ -78,14 +78,21 @@ package com.stdva.malibu.vpaint
 		
 		private function drawInPoint (point : Point) : void
 		{
-			var sn : Sprite = new Sprite;
+			
 			
 			var bmSprite : DisplayObject = brushSampleSprite;
-			bmSprite.scaleX = bmSprite.scaleY = 1;
+			
+			
+			//bmSprite.scaleX = bmSprite.scaleY = 1;
+			bmSprite.width = MIN_BRUSH_SIZE + (MAX_BRUSH_SIZE - MIN_BRUSH_SIZE)*drawingParams.brushSize/100;
+			bmSprite.scaleY = bmSprite.scaleX;
+			bmSprite.x = 0,
+			bmSprite.y = 0;
+			
+			
 			var bmData : BitmapData = new BitmapData (bmSprite.width,bmSprite.height,true,0x00000000);
 			var colorTransform : ColorTransform = new ColorTransform(1, 1, 1, 1, 0, 0, 0, 1)
-			
-			bmData.draw(bmSprite,null);
+			bmData.draw(bmSprite, bmSprite.transform.matrix);//,
 			
 			var bm : Bitmap = new Bitmap(bmData )
 			bm.smoothing = true;	
@@ -93,18 +100,23 @@ package com.stdva.malibu.vpaint
 			
 			colorTransform.color =drawingParams.color;		
 			bmData.colorTransform(rect,colorTransform);
+			
+			var sn : Sprite = new Sprite;
 			sn.addChild(bm);
 			
-			sn.width = MIN_BRUSH_SIZE + (MAX_BRUSH_SIZE - MIN_BRUSH_SIZE)*drawingParams.brushSize/100;
+			//sn.width = MIN_BRUSH_SIZE + (MAX_BRUSH_SIZE - MIN_BRUSH_SIZE)*drawingParams.brushSize/100;
 			
-			sn.scaleY = sn.scaleX;
+			//sn.scaleY = sn.scaleX;
 			sn.x = point.x - sn.width/2;
 			sn.y = point.y - sn.height/2;
 			var width : int = history.currentLayer.width;
 			var height : int = history.currentLayer.height
 			
-			history.currentLayer.bitmapData.draw(sn, sn.transform.matrix,new ColorTransform(),"normal", new Rectangle(0,0,width,height),true);
+			//history.currentLayer.bitmapData.draw(sn,,new ColorTransform(),"normal", new Rectangle(0,0,width,height),true);
+			history.currentLayer.bitmapData.draw(sn, sn.transform.matrix);
 			history.changed = true;
+			
+			bmSprite.scaleY = bmSprite.scaleX = 1;
 		}
 		
 		public function mouseMove( point : Point, buttonDown : Boolean ) : void 

@@ -5,6 +5,7 @@ package com.stdva.malibu.vpaint
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.geom.ColorTransform;
+	import flash.geom.Matrix;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	
@@ -126,28 +127,34 @@ package com.stdva.malibu.vpaint
 			bmd2.colorTransform(rect,colorTransform2);
 			*/
 			
-			var bm : Bitmap = new Bitmap(bmd2)
+		
 				
-			var s : Sprite = new Sprite;
+			
 			
 			//делаем сэмплы для раскрашивания
-			var sample : Sprite = new Sprite
-			sample.addChild(new Bitmap(brushSample));
 			
+			brushSampleSprite.width = drawingParams.brushSize;
+			brushSampleSprite.scaleY = brushSampleSprite.scaleX;
+			brushSampleSprite.x = brushSampleSprite.y = 0;
+			/*var sample : Sprite = new Sprite;
+			sample.addChild(brushSampleSprite);
 			sample.width = drawingParams.brushSize;
-			
 			sample.scaleY = sample.scaleX;
-			
-			var lilBitmapSample : BitmapData = new BitmapData(sample.width,sample.height,true,0x000000);
-			lilBitmapSample.draw(sample);
-			
-			s.graphics.beginBitmapFill(brushSample,sample.transform.matrix,true,true);
+			*/
+			var lilBitmapSample : BitmapData = new BitmapData(brushSampleSprite.width,brushSampleSprite.height,true,0x000000);
+			lilBitmapSample.draw(brushSampleSprite, brushSampleSprite.transform.matrix);
+		
+			var s : Sprite = new Sprite;
+			s.graphics.beginBitmapFill(lilBitmapSample,new Matrix(), true, true);
 			s.graphics.drawRect(0,0,width,height);
 			s.cacheAsBitmap = true;
-			bm.cacheAsBitmap = true;
-			var s2 : Sprite = new Sprite;
 			
+			
+			
+			var s2 : Sprite = new Sprite;
 			s2.addChild(s);
+			var bm : Bitmap = new Bitmap(bmd2)
+			bm.cacheAsBitmap = true;
 			s2.addChild(bm);		
 			s.mask = bm;
 				

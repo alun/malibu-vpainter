@@ -91,6 +91,7 @@ package com.stdva.malibu.vpaint
 			//drawingParams.currentTool = tool;
 			
 			guiListener.onUploadPictures(null);
+			toolSelecter.goToLast();
 			
 			
 			

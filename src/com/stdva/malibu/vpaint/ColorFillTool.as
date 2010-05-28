@@ -132,7 +132,7 @@ package com.stdva.malibu.vpaint
 			
 			//делаем сэмплы для раскрашивания
 			var sample : Sprite = new Sprite
-			var sBitmapData = new BitmapData(1,1,false,drawingParams.color);
+			var sBitmapData : BitmapData= new BitmapData(1,1,false,drawingParams.color);
 			sample.addChild(new Bitmap(sBitmapData));
 			
 			sample.width = 1;

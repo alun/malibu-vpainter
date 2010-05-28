@@ -85,13 +85,21 @@ package com.stdva.malibu.vpaint
 		public function initialize():void
 		{
 			
+			
 			if (brushSampleSprite)
 			{
 				brushSampleSprite.scaleX = brushSampleSprite.scaleY = 1;
 				brushSample = new BitmapData(brushSampleSprite.width, brushSampleSprite.height,true,0x000000)
 				brushSample.draw(brushSampleSprite,new Matrix(),new ColorTransform(),"normal",new Rectangle(0,0,brushSampleSprite.width, brushSampleSprite.height),true);					
 			
-			}	
+			}
+			
+			if (!brushSampleSprite)
+			{
+				var s : Sprite = new Sprite;
+				s.addChild(new Bitmap(brushSample))
+				brushSampleSprite = s;
+			}
 		
 			if (!brushSample)
 				brushSample =  new brushClass(100,100)
@@ -113,16 +121,30 @@ package com.stdva.malibu.vpaint
 		
 		private function drawInPoint (point : Point) : void
 		{
-			var sn : Sprite = new Sprite;
-			var bm : Bitmap = new Bitmap(brushSample )
-			bm.smoothing = true;
-			sn.addChild(bm);
-			sn.addChild(bm);
-			sn.width = MIN_BRUSH_SIZE + (MAX_BRUSH_SIZE - MIN_BRUSH_SIZE) * drawingParams.brushSize / 100;
-			sn.scaleY = sn.scaleX;
-			sn.x = point.x - sn.width/2;
-			sn.y = point.y - sn.height/2;
-			history.currentLayer.bitmapData.draw(sn, sn.transform.matrix);
+	//		var sn : Sprite = new Sprite;
+			
+			brushSampleSprite.width = MIN_BRUSH_SIZE + (MAX_BRUSH_SIZE - MIN_BRUSH_SIZE) * drawingParams.brushSize / 100;
+			brushSampleSprite.scaleY = brushSampleSprite.scaleX;
+			
+		//	var lbsbd : BitmapData = new BitmapData(brushSampleSprite.width, brushSampleSprite.height,true,0x000000)
+		//	lbsbd.draw(brushSampleSprite,brushSampleSprite.transform.matrix);
+				
+	//		brushSample.draw(brushSampleSprite,new Matrix(),new ColorTransform(),"normal",new Rectangle(0,0,brushSampleSprite.width, brushSampleSprite.height),true);					
+				
+				
+				
+	//		var bm : Bitmap = new Bitmap(lbsbd )
+				
+				
+	//		bm.smoothing = true;
+	//		sn.addChild(bm);
+		//	sn.addChild(bm);
+	//		sn.width = MIN_BRUSH_SIZE + (MAX_BRUSH_SIZE - MIN_BRUSH_SIZE) * drawingParams.brushSize / 100;
+//			sn.scaleY = sn.scaleX;
+			brushSampleSprite.x = point.x - brushSampleSprite.width/2;
+			brushSampleSprite.y = point.y - brushSampleSprite.height/2;
+			var rect : Rectangle = new Rectangle(0,0,history.currentLayer.width,history.currentLayer.height)
+			history.currentLayer.bitmapData.draw(brushSampleSprite, brushSampleSprite.transform.matrix,new ColorTransform(),null,rect,true);
 			history.changed = true;
 		}
 		

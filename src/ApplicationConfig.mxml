@@ -37,6 +37,11 @@
 	<vpaint:ToolSet id="toolset">
 		<vpaint:EmptyTool id="emptyTool"/>
 		<vpaint:FontDrawTool fontFamily="{'TatianaC'}" type="{ToolTypes.FONT}" id="font1Tool" />
+		<vpaint:FontDrawTool fontFamily="{'AGGloriaC'}" type="{ToolTypes.FONT}" id="font5Tool" />
+		<vpaint:FontDrawTool fontFamily="{'AnastasiaScriptC'}" type="{ToolTypes.FONT}" id="font4Tool" />
+		<vpaint:FontDrawTool fontFamily="{'BebitC'}" type="{ToolTypes.FONT}" id="font3Tool" />
+		<vpaint:FontDrawTool fontFamily="{'HeliosBlackC'}" type="{ToolTypes.FONT}" id="font2Tool" />
+		<vpaint:FontDrawTool fontFamily="{'HeliosCondC-Bold'}" type="{ToolTypes.FONT}" id="font6Tool" />
 	</vpaint:ToolSet>
 	
 </swiz:BeanLoader>

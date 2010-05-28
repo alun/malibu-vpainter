@@ -16,8 +16,10 @@ package com.stdva.malibu.vpaint
 	import flash.net.URLRequest;
 	import flash.net.URLRequestMethod;
 	import flash.net.URLVariables;
+	import flash.net.navigateToURL;
 	import flash.text.Font;
 	import flash.text.TextField;
+	import flash.ui.MouseCursor;
 	import flash.utils.ByteArray;
 	
 	import mx.controls.Alert;
@@ -46,6 +48,8 @@ package com.stdva.malibu.vpaint
 		private var _addToGalleryWindow : AddToGalleryWindow;
 		private var checkBox : MyCheckBox;
 		
+		private var agreeCheckBox : MyCheckBox;
+		
 		private var name : TextField;
 		private var secondName : TextField;
 		private var age : TextField;
@@ -56,6 +60,8 @@ package com.stdva.malibu.vpaint
 		
 		private var alert : TextField;
 		
+		private var bottleID : int;
+		
 		[Autowire]
 		public var history : History;
 	
@@ -63,8 +69,10 @@ package com.stdva.malibu.vpaint
 		public function set addToGalleryWindow( window : AddToGalleryWindow) : void 
 		{
 			_addToGalleryWindow = window;
-			addEventListeners();	
+			
 			checkBox = new MyCheckBox(_addToGalleryWindow.checkFrame, _addToGalleryWindow.check);
+			
+			agreeCheckBox = new MyCheckBox(_addToGalleryWindow.agreeCheckFrame,_addToGalleryWindow.agreeCheck);
 		
 			name = addTextField(_addToGalleryWindow.nameRect);
 			secondName = addTextField(_addToGalleryWindow.secondNameRect);
@@ -87,7 +95,7 @@ package com.stdva.malibu.vpaint
 			alert.text = ""
 			alert.multiline = true;
 			
-			
+			addEventListeners();	
 			
 			added = false;
 		}
@@ -117,8 +125,37 @@ package com.stdva.malibu.vpaint
 		{
 			_addToGalleryWindow.closeButton.addEventListener(MouseEvent.MOUSE_DOWN, onClose);
 			_addToGalleryWindow.saveButton.addEventListener(MouseEvent.CLICK, onSave);
+			
+			agreeCheckBox.addEventListener(MyCheckBox.CKICKED,onAgreeCheckBox)
 				
+				
+			_addToGalleryWindow.faceBookLink.addEventListener(MouseEvent.MOUSE_DOWN,onFaceBookLink);	
+			_addToGalleryWindow.twitterLink.addEventListener(MouseEvent.MOUSE_DOWN,onTwitterLink);
+			_addToGalleryWindow.blogLink.addEventListener(MouseEvent.MOUSE_DOWN, onBlogLink);
+			
 		}
+		
+		private function onFaceBookLink (e : *) : void
+		{
+			var bottleLink : String = "www.glamour.ru/promo/malibu-by-u/gallery.php?bootle=" +bottleID;
+			var request2 : URLRequest = new URLRequest( "http://www.facebook.com/share.php?u="+bottleLink+"&t=Моя бутылка Малибу");
+			navigateToURL(request2); 
+		}
+		private function onTwitterLink (e : *) : void
+		{
+			var bottleLink : String = "www.glamour.ru/promo/malibu-by-u/gallery.php?bootle=" +bottleID;
+			var request2 : URLRequest = new URLRequest( "http://twitter.com/home?status=Моя бутылка Малибу @Glamourrussia " + bottleLink);
+			navigateToURL(request2); 
+		}
+		private function onBlogLink (e : * ) : void
+		{
+			
+			var bottleLink : String = "www.glamour.ru/promo/malibu-by-u/gallery.php?bootle=" +bottleID;
+			//<a href="та_самая_ссылка">Моя бутылка Малибу</a>
+			Alert.show("<a href=\"" + bottleLink + "\">Моя бутылка Малибу</a>");	 
+			
+		}
+		
 		
 		private function set added( value : Boolean ) : void {
 			
@@ -200,7 +237,7 @@ package com.stdva.malibu.vpaint
 		
 		private function onSave(e : *) : void {
 			
-			if (!checkFields())
+			if (!agreeCheckBox.checked || !checkFields())
 				return;
 			
 			var encoder : JPEGEncoder = new JPEGEncoder(75);
@@ -246,7 +283,13 @@ package com.stdva.malibu.vpaint
 					if( response.error != null ) {
 						Alert.show( response.error.text );
 					} else
+					{
 						added = true;
+						
+						bottleID =  response.id;
+					
+					}
+						
 				} );
 					
 				loader.addEventListener( IOErrorEvent.IO_ERROR, function ( e : IOErrorEvent ) : void {
@@ -258,13 +301,18 @@ package com.stdva.malibu.vpaint
 				Alert.show('Ошибка загрузки');
 			} );
 		}
-			
+		
+		
 			
 		private function onClose (e : *) : void
 		{
 			var virtualPainter : VirtualPainter = FlexGlobals.topLevelApplication as VirtualPainter;
 			virtualPainter.showAddToGallery = false;
 			added = false;
+		}
+		private function onAgreeCheckBox (e : *) : void
+		{
+			_addToGalleryWindow.saveButton.enabled = agreeCheckBox.checked;
 		}
 		
 	}

@@ -111,6 +111,8 @@ package com.stdva.malibu.vpaint
 			backActive = false;
 			forwardActive = false;
 			
+			painterWindow.malibulogo.mouseEnabled = false;
+			painterWindow.malibulogo.mouseChildren = false;
 		} 
 		
 		private function onSaveToGallery (e : *) : void

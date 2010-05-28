@@ -35,3 +35,29 @@
 	fontWeight: normal;
 	fontFamily: HeliosCondC-Bold;
 }
+
+@font-face 
+{
+	src: url("fonts/AG Gloria/AGGloriaC.otf");
+	fontWeight: normal;
+	fontFamily: AGGloriaC;
+}
+@font-face 
+{
+	src: url("fonts/AnastasiaScript/AnastasiaScriptC.otf");
+	fontWeight: normal;
+	fontFamily: AnastasiaScriptC;
+}
+@font-face 
+{
+	src: url("fonts/Bebit/BebitC.otf");
+	fontWeight: normal;
+	fontFamily: BebitC;
+}
+
+@font-face 
+{
+	src: url("fonts/Helios/HeliosBlackC-Italic.otf");
+	fontWeight: normal;
+	fontFamily: HeliosBlackC;
+}
