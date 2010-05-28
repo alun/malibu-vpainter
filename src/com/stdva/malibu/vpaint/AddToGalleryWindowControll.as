@@ -143,6 +143,7 @@ package com.stdva.malibu.vpaint
 				w.phoneRect,
 				w.addressRect,
 				w.commentRect,
+				w.checkBoxLabel,
 				name,
 				secondName,
 				age,
@@ -175,7 +176,24 @@ package com.stdva.malibu.vpaint
 			 }
 			 else
 			 {
-			 	alert.text = 'Пожалуйста, заполните все обязательные поля!';
+				 var s : String = "";
+				if (!name.text.length )
+					 s = s + "\n Имя"
+				if (!secondName.text.length)		 
+					s = s + "\n Фамилия"
+				if (!age.text.length)		
+					s = s + "/n Возраст"
+				if (!email.text.length)
+					s = s + "\n Е-мэйл"
+				if (!phone.text.length)
+					s = s + "\n Телефон"
+				if (!address.text.length)
+					s = s + "\n Адрес"
+				if (!comment.text.length)		
+					s = s + "\n Комментарий"	
+					
+				 Alert.show('Пожалуйста, заполните все обязательные поля!' + s);
+			 	//alert.text = 'Пожалуйста, заполните все обязательные поля!';
 			 	return false;
 			 }
 		}
