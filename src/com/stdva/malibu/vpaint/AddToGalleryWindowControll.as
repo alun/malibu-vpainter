@@ -97,7 +97,12 @@ package com.stdva.malibu.vpaint
 			
 			addEventListeners();	
 			
+			
 			added = false;
+			agreeCheckBox.checked = false;
+			onAgreeCheckBox(null);
+			
+			
 		}
 		public function addTextField (r : DisplayObject) : TextField
 		{
@@ -312,7 +317,7 @@ package com.stdva.malibu.vpaint
 		}
 		private function onAgreeCheckBox (e : *) : void
 		{
-			_addToGalleryWindow.saveButton.enabled = agreeCheckBox.checked;
+			_addToGalleryWindow.saveButton.visible = agreeCheckBox.checked;
 		}
 		
 	}
