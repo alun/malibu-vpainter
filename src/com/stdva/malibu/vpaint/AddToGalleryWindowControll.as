@@ -142,22 +142,22 @@ package com.stdva.malibu.vpaint
 		
 		private function onFaceBookLink (e : *) : void
 		{
-			var bottleLink : String = "www.glamour.ru/promo/malibu-by-u/gallery.php?bootle=" +bottleID;
-			var request2 : URLRequest = new URLRequest( "http://www.facebook.com/share.php?u="+bottleLink+"&t=Моя бутылка Малибу");
+			var bottleLink : String = "http://www.glamour.ru/promo/malibu-by-u/gallery.php?bottle=" +bottleID;
+			var request2 : URLRequest = new URLRequest( "http://www.facebook.com/share.php?u="+bottleLink+"&t=My Malibu bottle");
 			navigateToURL(request2); 
 		}
 		private function onTwitterLink (e : *) : void
 		{
-			var bottleLink : String = "www.glamour.ru/promo/malibu-by-u/gallery.php?bootle=" +bottleID;
-			var request2 : URLRequest = new URLRequest( "http://twitter.com/home?status=Моя бутылка Малибу @Glamourrussia " + bottleLink);
+			var bottleLink : String = "http://www.glamour.ru/promo/malibu-by-u/gallery.php?bottle=" +bottleID;
+			var request2 : URLRequest = new URLRequest( "http://twitter.com/home?status=My Malibu bottle @Glamourrussia " + bottleLink);
 			navigateToURL(request2); 
 		}
 		private function onBlogLink (e : * ) : void
 		{
 			
-			var bottleLink : String = "www.glamour.ru/promo/malibu-by-u/gallery.php?bootle=" +bottleID;
+			var bottleLink : String = "http://www.glamour.ru/promo/malibu-by-u/gallery.php?bottle=" +bottleID;
 			//<a href="та_самая_ссылка">Моя бутылка Малибу</a>
-			Alert.show("<a href=\"" + bottleLink + "\">Моя бутылка Малибу</a>");	 
+			Alert.show("Текст для вставки в блог: <a href=\"" + bottleLink + "\">Моя бутылка Малибу</a>");	 
 			
 		}
 		
@@ -176,7 +176,6 @@ package com.stdva.malibu.vpaint
 			]
 			
 			var group2 : Array = [
-				w.complexBack,
 				w.saveButton,
 				w.nameRect,
 				w.secondNameRect,
@@ -195,7 +194,10 @@ package com.stdva.malibu.vpaint
 				comment,
 				alert,
 				w.check,
-				w.checkFrame
+				w.checkFrame,
+				w.agreeCheck,
+				w.agreeCheckFrame,
+				w.agreeLabel
 			]
 			
 			var obj : DisplayObject;
@@ -219,22 +221,15 @@ package com.stdva.malibu.vpaint
 			 else
 			 {
 				 var s : String = "";
-				if (!name.text.length )
-					 s = s + "\n Имя"
-				if (!secondName.text.length)		 
-					s = s + "\n Фамилия"
-				if (!age.text.length)		
-					s = s + "/n Возраст"
-				if (!email.text.length)
-					s = s + "\n Е-мэйл"
-				if (!phone.text.length)
-					s = s + "\n Телефон"
-				if (!address.text.length)
-					s = s + "\n Адрес"
-				if (!comment.text.length)		
-					s = s + "\n Комментарий"	
+				if (!name.text.length )	s += "\n Имя";
+				if (!secondName.text.length) s += "\n Фамилия";
+				if (!age.text.length) s += "\n Возраст";
+				if (!email.text.length) s += "\n Е-мэйл";
+				if (!phone.text.length)	s += "\n Телефон";
+				if (!comment.text.length) s += "\n Комментарий";
+				if (!address.text.length) s += "\n Адрес";
 					
-				 Alert.show('Пожалуйста, заполните все обязательные поля!' + s);
+				 Alert.show('Пожалуйста, заполните все обязательные поля!' + s + '\n ');
 			 	//alert.text = 'Пожалуйста, заполните все обязательные поля!';
 			 	return false;
 			 }
