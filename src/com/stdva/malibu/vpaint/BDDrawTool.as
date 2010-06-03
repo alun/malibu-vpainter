@@ -18,8 +18,8 @@ package com.stdva.malibu.vpaint
 	public class BDDrawTool implements ITool, IInitializingBean
 	{
 		
-		public static const MAX_BRUSH_SIZE : int= 30;
-		public static const MIN_BRUSH_SIZE : int = 0;
+		public static const MAX_BRUSH_SIZE : int= 100;
+		public static const MIN_BRUSH_SIZE : int = -5;
 		
 		[Autowire]
 		public var history : History;
