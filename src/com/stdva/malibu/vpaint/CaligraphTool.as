@@ -112,10 +112,56 @@ package com.stdva.malibu.vpaint
 				var direction : Boolean = Math.random() > 0.6 ? true : false; 
 				var probChDirection : Number = 0.025;
 				
+				var fWidth : Number = minW + (maxW - minW) * Math.random();
+				var lWidth : Number = minW + (maxW - minW) * Math.random();
+				
+				var frequency : int = 10;
+				var dispersion : int = 10;
+				
+				var keyPoints : Array = [];
+				var keyValues : Array = [];
+				for (var k : int = 0;;)
+				{
+					keyPoints.push(k);
+					keyValues.push(minW + (maxW - minW) * Math.random());
+					k += frequency + dispersion;
+					if (k>= points.length)
+						break;
+				}			
+				keyPoints.push(points.length-1);
+				keyValues.push(minW + (maxW - minW) * Math.random());
+				
+				var idx : int = 0;
+				
+		
+				for each (var p : Point in points)
+				{
+					
+					var lastKeyIdx : int;
+					var nextKeyIdx : int;
+					var lastKeyValuesIndex : int; 
+					for each (var ki : int in keyPoints)
+					{
+						if (ki >idx && keyPoints[keyPoints.indexOf(ki) -1] <= idx )
+						{
+							nextKeyIdx =ki;
+							 lastKeyIdx = keyPoints[keyPoints.indexOf(ki) -1];
+							 lastKeyValuesIndex = keyPoints.indexOf(ki);
+							break;
+						}
+					}
+					
+					w = keyValues [lastKeyValuesIndex] ;
+					
+					var w : Number= 10;
+					drawInPointWithWidth(p,w);
+					idx++
+				}
+				
+				/*
 				for each (var p: Point in points )
 				{
 					var w : Number;
-					
 					if (Math.random() < probChDirection)
 					{//меняем направление (maxW-lastWidth)*(lastWidth-minW)/(maxW-minW)*(maxW-minW) 
 						direction = !direction
@@ -130,7 +176,8 @@ package com.stdva.malibu.vpaint
 						w = lastWidth - Math.random() * (lastWidth - minW) * 0.7;
 					}
 					drawInPointWithWidth(p,w);
-				}
+				}*/
+	
 				history.checkout();
 				points = [];
 			}

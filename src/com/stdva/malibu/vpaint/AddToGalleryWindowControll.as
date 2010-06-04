@@ -166,11 +166,16 @@ package com.stdva.malibu.vpaint
 			
 			var w : AddToGalleryWindow = _addToGalleryWindow;
 			
-			var group1 : Array = [
+			var group0 : Array = [
 				w.shareText,
 				w.faceBookLink,
 				w.twitterLink,
-				w.blogLink,
+				w.blogLink
+				
+			];
+			
+			var group1 : Array = [
+				
 				w.thankText,
 				w.simpleBack
 			]
@@ -209,6 +214,10 @@ package com.stdva.malibu.vpaint
 			for each( obj in group2 ) {
 				obj.visible = ! value;
 			}
+			
+			for each( obj in group0 ) {
+				obj.visible = false;
+			}			
 		}
 		
 		private function checkFields () : Boolean

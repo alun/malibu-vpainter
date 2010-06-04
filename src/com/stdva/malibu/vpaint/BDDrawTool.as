@@ -18,8 +18,8 @@ package com.stdva.malibu.vpaint
 	public class BDDrawTool implements ITool, IInitializingBean
 	{
 		
-		public static const MAX_BRUSH_SIZE : int= 150;
-		public static const MIN_BRUSH_SIZE : int = 0;
+		public static const MAX_BRUSH_SIZE : int= 100;
+		public static const MIN_BRUSH_SIZE : int = -5;
 		
 		[Autowire]
 		public var history : History;
@@ -73,7 +73,7 @@ package com.stdva.malibu.vpaint
 			stopDraw();
 		} 
 
-		private static const SOLIDITY : int = 3;	
+		private static const SOLIDITY : int = 1;	
 		//длина вектора на один битмап
 		
 		private function drawInPoint (point : Point) : void
