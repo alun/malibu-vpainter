@@ -158,11 +158,7 @@ package com.stdva.malibu.vpaint
 //			virtualPainter.showPicker();
 			
 			toolSelecter.reset();
-			
-			for each (var tool : ITool in toolSet.getWithType(ToolTypes.BRUSH ))
-			{
-				toolSelecter.addTool(tool);
-			}
+
 			for each (var tool2 : ITool in toolSet.getWithType(ToolTypes.TATOO ))
 			{
 				toolSelecter.addTool(tool2);
@@ -171,6 +167,10 @@ package com.stdva.malibu.vpaint
 			{
 				toolSelecter.addTool(tool3);
 			}
+			for each (var tool : ITool in toolSet.getWithType(ToolTypes.BRUSH ))
+			{
+				toolSelecter.addTool(tool);
+			}			
 
 			toolSelecter.goToFirst();
 			toolSelecter.layout();
