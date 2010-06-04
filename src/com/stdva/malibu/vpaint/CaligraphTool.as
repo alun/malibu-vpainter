@@ -18,7 +18,7 @@ package com.stdva.malibu.vpaint
 	public class CaligraphTool implements ITool, IInitializingBean
 	{
 		
-		public static const MAX_BRUSH_SIZE : int= 30;
+		public static const MAX_BRUSH_SIZE : int= 15;
 		public static const MIN_BRUSH_SIZE : int = 0;
 		
 		[Autowire]
@@ -112,48 +112,33 @@ package com.stdva.malibu.vpaint
 				var direction : Boolean = Math.random() > 0.6 ? true : false; 
 				var probChDirection : Number = 0.025;
 				
+				
+				
+				var frequency : int = 50;
+				var dispersion : int = 10;
+			
+				var idx : int = 0;
+				
 				var fWidth : Number = minW + (maxW - minW) * Math.random();
 				var lWidth : Number = minW + (maxW - minW) * Math.random();
 				
-				var frequency : int = 10;
-				var dispersion : int = 10;
+				var nextKeyIndex : int;
+				var curLen : int;
 				
-				var keyPoints : Array = [];
-				var keyValues : Array = [];
-				for (var k : int = 0;;)
-				{
-					keyPoints.push(k);
-					keyValues.push(minW + (maxW - minW) * Math.random());
-					k += frequency + dispersion;
-					if (k>= points.length)
-						break;
-				}			
-				keyPoints.push(points.length-1);
-				keyValues.push(minW + (maxW - minW) * Math.random());
-				
-				var idx : int = 0;
-				
-		
 				for each (var p : Point in points)
 				{
 					
-					var lastKeyIdx : int;
-					var nextKeyIdx : int;
-					var lastKeyValuesIndex : int; 
-					for each (var ki : int in keyPoints)
+					if (points.indexOf(p) >= nextKeyIndex )
 					{
-						if (ki >idx && keyPoints[keyPoints.indexOf(ki) -1] <= idx )
-						{
-							nextKeyIdx =ki;
-							 lastKeyIdx = keyPoints[keyPoints.indexOf(ki) -1];
-							 lastKeyValuesIndex = keyPoints.indexOf(ki);
-							break;
-						}
+						curLen = frequency + Math.random()*dispersion;
+						nextKeyIndex = nextKeyIndex + curLen;
+						lWidth = fWidth;
+						fWidth = minW + (maxW - minW) * Math.random();
 					}
 					
-					w = keyValues [lastKeyValuesIndex] ;
+					var w : Number  = lWidth + (fWidth-lWidth) * (nextKeyIndex - idx)/curLen
 					
-					var w : Number= 10;
+					
 					drawInPointWithWidth(p,w);
 					idx++
 				}
