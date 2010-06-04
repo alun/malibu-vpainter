@@ -10,5 +10,7 @@ package com.stdva.malibu.vpaint
 		public static const LOADED_BITMAP : String = "Loaded bitmap";
 		public static const FILL : String = "Fill";
 		public static const COLOR_FILL : String = "Color fill";
+		public static const TATOO : String = "Tatoo tool";
+		public static const CALIGRAPH : String = "Caligraph tool";
 	}
 }

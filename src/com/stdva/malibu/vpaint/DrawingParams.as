@@ -44,7 +44,7 @@ package com.stdva.malibu.vpaint
 		} 
 		
 		
-		public function get brushSize () : int
+		public function get brushSize () : Number
 		{
 			return widthSlider.value;
 			//return MIN_BRUSH_SIZE + (MAX_BRUSH_SIZE-MIN_BRUSH_SIZE)*widthSlider.value/100;

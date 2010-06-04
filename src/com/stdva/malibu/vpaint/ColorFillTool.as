@@ -26,7 +26,7 @@ package com.stdva.malibu.vpaint
 		[Autowire]
 		public var drawingParams : DrawingParams;
 		
-		public function FillTool()
+		public function FillTool() : void
 		{
 		}
 		

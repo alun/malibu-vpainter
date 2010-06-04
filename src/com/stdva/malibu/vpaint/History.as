@@ -115,7 +115,7 @@ package com.stdva.malibu.vpaint
 			var bitmapData : BitmapData = new BitmapData(source.width, source.height, true, 0);
 			
 			
-			return new Bitmap(bitmapData);
+			return new Bitmap(bitmapData,"auto",true);
 		} 
 		
 		public function get currentBitmap() : BitmapData {
@@ -282,6 +282,16 @@ package com.stdva.malibu.vpaint
 			painterWindow.addChildAt( currentLayer, idx + 2 );
 			painterWindow.addChildAt(currentSprite,idx + 3);
 			checkButtons ();
+		}
+		
+		public function cleanCurrentLayer () : void
+		{
+			painterWindow.removeChild( currentLayer );
+			currentLayer = createLayer();
+			currentLayer.alpha = drawingParams.opacity;
+			currentLayer.mask = painterWindow.maskArea;
+			var idx : int = painterWindow.getChildIndex( painterWindow.bottle );
+			painterWindow.addChildAt( currentLayer, idx + 2 );
 		}
 		
 		

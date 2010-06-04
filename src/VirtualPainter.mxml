@@ -34,6 +34,7 @@
 			import com.stdva.malibu.PainterWindow;
 			import com.stdva.malibu.vpaint.BDDrawTool;
 			import com.stdva.malibu.vpaint.BMPDrawTool;
+			import com.stdva.malibu.vpaint.CaligraphTool;
 			import com.stdva.malibu.vpaint.ColorFillTool;
 			import com.stdva.malibu.vpaint.DrawingParams;
 			import com.stdva.malibu.vpaint.FillTool;
@@ -41,6 +42,7 @@
 			import com.stdva.malibu.vpaint.MaskColorPicker;
 			import com.stdva.malibu.vpaint.MyColorPickerController;
 			import com.stdva.malibu.vpaint.Preloader;
+			import com.stdva.malibu.vpaint.TatooTool;
 			import com.stdva.malibu.vpaint.ToolSet;
 			import com.stdva.malibu.vpaint.ToolTypes;
 			
@@ -148,7 +150,25 @@
 								toolSet.tools.push( fbTool  );
 								Swiz.autowire(fbTool);
 							}
-						
+							else
+							if (group == "tt" )
+							{
+								var ttTool : TatooTool = new TatooTool();
+								ttTool.type = ToolTypes.TATOO;
+								ttTool.brushSampleSprite = toolsMap[ group ][i];	
+								toolSet.tools.push( ttTool  );
+								Swiz.autowire(ttTool);
+							}
+							else
+							if (group == "cg" )
+							{
+								var cgTool : CaligraphTool = new CaligraphTool();
+								cgTool.type = ToolTypes.CALIGRAPH;
+								cgTool.brushSampleSprite = toolsMap[ group ][i];	
+								toolSet.tools.push( cgTool  );
+								Swiz.autowire(cgTool);
+							}
+							
 							//toolSet.addTool(group, toolsMap[ group ][i]);
 							//toolSet.tools.push( toolsMap [ group ] [i]  )
 						

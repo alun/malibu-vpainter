@@ -63,6 +63,10 @@ package com.stdva.malibu.vpaint
 				drawingParams.currentTool.mouseUp(new Point (e.localX,e.localY));
 			}
 		}
+		private function onMouseUp(e : MouseEvent): void
+		{
+			drawingParams.currentTool.mouseUp(new Point (e.localX,e.localY));
+		}
 		public function setup () : void
 		{
 			
@@ -76,6 +80,9 @@ package com.stdva.malibu.vpaint
 			painterWindow.bottle.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
 			painterWindow.malibulogo.addEventListener(MouseEvent.MOUSE_MOVE,onMouseMove);
 			painterWindow.malibulogo.addEventListener(MouseEvent.MOUSE_DOWN,onMouseDown);
+			painterWindow.bottle.addEventListener(MouseEvent.MOUSE_UP,onMouseUp);
+			painterWindow.malibulogo.addEventListener(MouseEvent.MOUSE_UP,onMouseUp);
+			painterWindow.addEventListener(MouseEvent.MOUSE_UP,onMouseUp);
 			
 			painterWindow.addEventListener(MouseEvent.MOUSE_MOVE, onMouseOut);
 			
@@ -155,6 +162,14 @@ package com.stdva.malibu.vpaint
 			for each (var tool : ITool in toolSet.getWithType(ToolTypes.BRUSH ))
 			{
 				toolSelecter.addTool(tool);
+			}
+			for each (var tool2 : ITool in toolSet.getWithType(ToolTypes.TATOO ))
+			{
+				toolSelecter.addTool(tool2);
+			}
+			for each (var tool3 : ITool in toolSet.getWithType(ToolTypes.CALIGRAPH ))
+			{
+				toolSelecter.addTool(tool3);
 			}
 
 			toolSelecter.goToFirst();
