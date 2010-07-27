@@ -19,6 +19,7 @@ package com.stdva.malibu.vpaint
 	import flash.net.navigateToURL;
 	import flash.text.Font;
 	import flash.text.TextField;
+	import flash.text.TextFieldType;
 	import flash.ui.MouseCursor;
 	import flash.utils.ByteArray;
 	
@@ -107,12 +108,12 @@ package com.stdva.malibu.vpaint
 		public function addTextField (r : DisplayObject) : TextField
 		{
 			var t : TextField = new TextField();
-			t.type = "input";
+			t.type = TextFieldType.INPUT;
 			t.text = "";
 			t.wordWrap = true;
-			Fonts.apply( t, "Arial" );
 			fit (t, r);
 			t.multiline = true;
+			Fonts.apply( t, "HeliosC" );
 			_addToGalleryWindow.addChild(t);
 			
 			return t;
@@ -266,6 +267,8 @@ package com.stdva.malibu.vpaint
 			var loader : URLLoader = new URLLoader();
 			loader.load( request );
 			
+			added = true;
+			
 			loader.addEventListener( Event.COMPLETE, function ( e : Event ) : void {
 				
 				data = new URLVariables();
@@ -280,6 +283,8 @@ package com.stdva.malibu.vpaint
 				data.isvirtual = true;
 				data.wantnews = checkBox.checked;
 				
+				
+				
 				request = new URLRequest("bottle/post.php" );
 				request.method = URLRequestMethod.POST;
 				request.data = data;
@@ -288,6 +293,7 @@ package com.stdva.malibu.vpaint
 				loader.load( request );
 				
 				loader.addEventListener( Event.COMPLETE, function( e : Event ) : void {
+					
 					var response : Object = JSON.decode( loader.data );
 					if( response.error != null ) {
 						Alert.show( response.error.text );

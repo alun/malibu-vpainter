@@ -13,6 +13,8 @@ package com.stdva.malibu.vpaint
 	
 	import mx.states.AddChild;
 	
+	
+	
 	import org.swizframework.factory.IInitializingBean;
 	
 	public class CaligraphTool implements ITool, IInitializingBean

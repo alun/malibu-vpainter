@@ -124,7 +124,7 @@ package com.stdva.malibu.vpaint
 		
 		private function onSaveToGallery (e : *) : void
 		{
-			var virtualPainter : VirtualPainter = Application.application as VirtualPainter;
+			var virtualPainter : VirtualPainter = FlexGlobals.topLevelApplication as VirtualPainter;
 			virtualPainter.showAddToGallery = true;
 		}
 		
@@ -209,16 +209,18 @@ package com.stdva.malibu.vpaint
 		}
 		private function onFillings (e : *) : void
 		{	
+			var tool : ITool;
+			
 			painterWindow.settings.fileLoad.visible = false;
 			showColorPicker = true;
 			toolSelecter.reset();
 			
-			for each (var tool : ITool in toolSet.getWithType(ToolTypes.COLOR_FILL))
+			for each (tool in toolSet.getWithType(ToolTypes.COLOR_FILL))
 			{
 				toolSelecter.addTool(tool);
 			}
 			
-			for each (var tool : ITool in toolSet.getWithType(ToolTypes.FILL))
+			for each (tool in toolSet.getWithType(ToolTypes.FILL))
 			{
 				toolSelecter.addTool(tool);
 			}
